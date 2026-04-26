@@ -75,6 +75,15 @@ Open items:
   - Plugin install (M1) is per-machine. If a future contributor joins, they re-run `m1-toolkit-quickstart.md`. Mitigation: documented and linked from `CLAUDE.md` in M1.
   - `.mcp.json` at repo root (added in M7) will *also* affect interactive Claude Code sessions. Document the behavior change in the M7 spec when written.
 
+## 2026-04-26 — M8 — Specialist agents (liquid / config / assets)
+
+- Branch `feature/m8-specialist-agents` (stacked off M7). Files: 9 in `orchestrator/src/agents/{liquid,config,assets}/{prompt,harness,index}.ts/md` + `orchestrator/src/orchestrator/dispatch.ts` + workflow-runner update + specialists.smoke.test.ts + M8 spec.
+- Each specialist has a file-glob policy enforced procedurally (regex globs in harness). M11 will centralize via `permissions.yml`.
+- Workflow runner now calls `dispatchTask` per PlanTask. Specialists return scaffold observations (`success: false`, "not yet implemented at runtime"). The dispatch path is real; the model calls aren't.
+- Smoke tests verify policy refusal — e.g. liquid agent given `assets/foo.css` returns `success: false` with "File-glob policy violation."
+- `dispatch.ts` uses TypeScript exhaustiveness check (`_exhaustive: never`) so adding a new `targetAgent` enum value forces a dispatch branch.
+- Watch-outs: scaffold returns `success: false` for the user — don't read M8's "merged" status as "feature builds work end-to-end." M9–M11 are still required.
+
 ## 2026-04-26 — M7 — Planner+Architect agent (scaffold)
 
 - Branch `feature/m7-planner-architect` (stacked off M6). Files: `.mcp.json`, `orchestrator/{package.json, tsconfig.json, README.md, src/types.ts, src/tools/*, src/orchestrator/*, src/agents/planner-architect/*, src/index.ts, tests/}`, ADR-006, M7 spec.

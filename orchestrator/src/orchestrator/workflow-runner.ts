@@ -7,6 +7,7 @@
 import type { FeatureRequest, Plan, ArchitectDesign, AgentObservation } from "../types.js";
 import { runPlannerArchitect } from "../agents/planner-architect/index.js";
 import { observationBus } from "./message-bus.js";
+import { dispatchTask } from "./dispatch.js";
 
 export interface RunFeatureResult {
   plan: Plan;
@@ -27,12 +28,9 @@ export async function runFeature(
     const { plan, design } = await runPlannerArchitect(featureRequest);
 
     // M8 — dispatch each task to its specialist agent.
-    // Stub: future implementation maps task.targetAgent → handler module.
     for (const task of plan.tasks) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        `[workflow-runner] task ${task.id} (${task.targetAgent}) — dispatch deferred to M8`,
-      );
+      const obs = await dispatchTask(task);
+      await observationBus.publish(obs);
     }
 
     // M9 — aggregate validation. Stubbed.

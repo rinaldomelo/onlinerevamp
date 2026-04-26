@@ -14,7 +14,7 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 | M5 | [M5-prod-deploy.md](./M5-prod-deploy.md) | Spec ready (PR open) |
 | M6 | [M6-tier2-skills.md](./M6-tier2-skills.md) | Spec ready (PR open) |
 | M7 | [M7-planner-architect.md](./M7-planner-architect.md) | Spec ready (PR open) |
-| M8 | *Not yet specced* | Stub below |
+| M8 | [M8-specialist-agents.md](./M8-specialist-agents.md) | Spec ready (PR open) |
 | M9 | *Not yet specced* | Stub below |
 | M10 | *Not yet specced* | Stub below |
 | M11 | *Not yet specced* | Stub below |
@@ -25,10 +25,6 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 ## Milestone stubs (just-in-time, expand into full specs when starting)
 
 (M0 and M1 specs are full files; see index above. Stubs below are M2–M12.)
-
-### M8 — Specialist implementation agents
-
-`liquid-agent`, `config-agent`, `assets-agent` as Agent SDK subagents called by the planner-architect. Each is bound by file-glob policy (liquid touches only `sections/`, `snippets/`, `templates/*.liquid`; config only `*.json` config; assets only `assets/*.css|js`). Each writes a single change-set, validates locally, returns a structured observation. Acceptance: planner-architect dispatches a multi-file feature build that compiles green without human intervention on routine features.
 
 ### M9 — Validation agent
 
