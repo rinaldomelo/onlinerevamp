@@ -1,0 +1,331 @@
+{{ 'section-new-hero.css' | asset_url | stylesheet_tag }}
+
+{% render 'divider',
+  show_divider: section.settings.show_section_divider,
+  divider_width: section.settings.divider_width
+%}
+
+{%- liquid
+  assign motion_delay = 50
+  assign heading_tag = section.settings.heading_tag | default: 'h1'
+  assign heading_size = section.settings.heading_size | default: 'hd1'
+-%}
+
+<div
+  class="section section--padding new-hero color-{{ section.settings.color_scheme }}{% if section.settings.custom_class != blank %} {{ section.settings.custom_class }}{% endif %}"
+  style="--section-padding-top: {{ section.settings.padding_top }}px;--section-padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="page-width">
+    <div class="new-hero__intro">
+      {%- if section.settings.heading != blank -%}
+        <motion-element class="block" data-motion="fade-up" data-motion-delay="{{ motion_delay }}">
+          <{{ heading_tag }} class="new-hero__heading {{ heading_size }}">
+            {{- section.settings.heading -}}
+          </{{ heading_tag }}>
+        </motion-element>
+        {%- assign motion_delay = motion_delay | plus: 50 -%}
+      {%- endif -%}
+
+      {%- if section.settings.lead != blank -%}
+        <motion-element class="block" data-motion="fade-up" data-motion-delay="{{ motion_delay }}">
+          <div class="new-hero__lead rte">{{ section.settings.lead }}</div>
+        </motion-element>
+        {%- assign motion_delay = motion_delay | plus: 50 -%}
+      {%- endif -%}
+
+      {%- if section.settings.enable_badge and section.settings.badge_text != blank -%}
+        <motion-element class="new-hero__badge-wrap block" data-motion="fade-up" data-motion-delay="{{ motion_delay }}">
+          <div class="new-hero__badge">
+            {%- if section.settings.badge_icon != blank -%}
+              <span class="new-hero__badge-icon" aria-hidden="true">
+                {{ section.settings.badge_icon | image_url: width: 56 | image_tag: loading: 'lazy', widths: '28, 56' }}
+              </span>
+            {%- endif -%}
+            <span class="new-hero__badge-text">{{ section.settings.badge_text | newline_to_br }}</span>
+          </div>
+        </motion-element>
+        {%- assign motion_delay = motion_delay | plus: 50 -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="new-hero__grid new-hero__grid--{{ section.blocks.size }}">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'feature_card' -%}
+              <motion-element class="block new-hero__card-wrap" data-motion="fade-up" data-motion-delay="{{ motion_delay }}">
+                <div class="new-hero__card" {{ block.shopify_attributes }}>
+                  {%- if block.settings.eyebrow_icon != blank or block.settings.eyebrow_label != blank -%}
+                    <div class="new-hero__card-eyebrow">
+                      {%- if block.settings.eyebrow_icon != blank -%}
+                        <span class="new-hero__card-eyebrow-icon" aria-hidden="true">
+                          {{ block.settings.eyebrow_icon | image_url: width: 36 | image_tag: loading: 'lazy', widths: '18, 36' }}
+                        </span>
+                      {%- endif -%}
+                      {%- if block.settings.eyebrow_label != blank -%}
+                        <span class="new-hero__card-eyebrow-label">{{ block.settings.eyebrow_label }}</span>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+
+                  {%- if block.settings.heading != blank -%}
+                    <h3 class="new-hero__card-heading h3">{{ block.settings.heading }}</h3>
+                  {%- endif -%}
+
+                  {%- if block.settings.body != blank -%}
+                    <div class="new-hero__card-body rte">{{ block.settings.body }}</div>
+                  {%- endif -%}
+
+                  <div class="new-hero__card-image{% if block.settings.image == blank %} new-hero__card-image--placeholder{% endif %}">
+                    {%- if block.settings.image != blank -%}
+                      {%- assign card_image_alt = block.settings.image.alt | default: block.settings.heading | strip_html -%}
+                      {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '(min-width: 768px) 50vw, 100vw', widths: '400, 600, 800, 1200, 1600', alt: card_image_alt }}
+                    {%- endif -%}
+                  </div>
+
+                  {%- if block.settings.button_label != blank -%}
+                    <div class="new-hero__card-cta-row">
+                      <a
+                        class="btn btn--primary btn--lg btn--block new-hero__cta"
+                        {% if block.settings.button_link != blank %}
+                          href="{{ block.settings.button_link }}"
+                        {% else %}
+                          role="link" aria-disabled="true"
+                        {% endif %}
+                      >
+                        <span class="new-hero__cta-label">{{ block.settings.button_label }}</span>
+                        <span class="new-hero__cta-plus" aria-hidden="true">+</span>
+                      </a>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </motion-element>
+              {%- assign motion_delay = motion_delay | plus: 50 -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.new-hero.name",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["footer", "header", "custom.overlay"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "A dark hero band with optional partner badge and 2 feature cards. Drop on any template."
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.general.name"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-inverse"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.content.name"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "We know Shopify. Your growth partner.",
+      "label": "t:sections.all.heading.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:sections.all.text_size.heading.label",
+      "default": "hd1",
+      "options": [
+        { "value": "h6", "label": "t:sections.all.text_size.options__h6.label" },
+        { "value": "h5", "label": "t:sections.all.text_size.options__h5.label" },
+        { "value": "h4", "label": "t:sections.all.text_size.options__h4.label" },
+        { "value": "h3", "label": "t:sections.all.text_size.options__h3.label" },
+        { "value": "h2", "label": "t:sections.all.text_size.options__h2.label" },
+        { "value": "h1", "label": "t:sections.all.text_size.options__h1.label" },
+        { "value": "hd3", "label": "t:sections.all.text_size.options__hd3.label" },
+        { "value": "hd2", "label": "t:sections.all.text_size.options__hd2.label" },
+        { "value": "hd1", "label": "t:sections.all.text_size.options__hd1.label" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.all.heading_tag.label",
+      "default": "h1",
+      "options": [
+        { "value": "h1", "label": "t:sections.all.heading_tag.options__1.label" },
+        { "value": "h2", "label": "t:sections.all.heading_tag.options__2.label" },
+        { "value": "h3", "label": "t:sections.all.heading_tag.options__3.label" },
+        { "value": "h4", "label": "t:sections.all.heading_tag.options__4.label" },
+        { "value": "h5", "label": "t:sections.all.heading_tag.options__5.label" },
+        { "value": "h6", "label": "t:sections.all.heading_tag.options__6.label" }
+      ],
+      "info": "t:sections.all.heading_tag.info"
+    },
+    {
+      "type": "richtext",
+      "id": "lead",
+      "default": "<p>Los Angeles-based Shopify Plus design and development agency. Trusted since 2011 by high-growth eCommerce brands for strategic builds and long-term support.</p>",
+      "label": "t:sections.new-hero.settings.lead.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.new-hero.settings.badge.header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_badge",
+      "default": true,
+      "label": "t:sections.new-hero.settings.enable_badge.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_icon",
+      "label": "t:sections.new-hero.settings.badge_icon.label"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "default": "SHOPIFY PLUS\nPARTNER",
+      "label": "t:sections.new-hero.settings.badge_text.label",
+      "info": "t:sections.new-hero.settings.badge_text.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.divider.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_section_divider",
+      "default": false,
+      "label": "t:sections.all.divider.settings.show_divider.label"
+    },
+    {
+      "type": "select",
+      "id": "divider_width",
+      "options": [
+        { "value": "fixed", "label": "t:sections.all.container.options__fixed.label" },
+        { "value": "full", "label": "t:sections.all.container.options__full.label" }
+      ],
+      "default": "fixed",
+      "label": "t:sections.all.divider.settings.divider_width.label",
+      "visible_if": "{{ section.settings.show_section_divider == true }}"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.custom_attr.header"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "t:sections.all.custom_attr.custom_class"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_card",
+      "name": "t:sections.new-hero.blocks.feature_card.name",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "eyebrow_icon",
+          "label": "t:sections.new-hero.blocks.feature_card.settings.eyebrow_icon.label"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow_label",
+          "label": "t:sections.new-hero.blocks.feature_card.settings.eyebrow_label.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "t:sections.all.heading.label"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "t:sections.all.text.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.new-hero.blocks.feature_card.settings.image.label",
+          "info": "t:sections.new-hero.blocks.feature_card.settings.image.info"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Learn more",
+          "label": "t:sections.all.button.button_label.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.all.button.button_link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.new-hero.presets.name",
+      "blocks": [
+        {
+          "type": "feature_card",
+          "settings": {
+            "eyebrow_label": "BUILDS & MIGRATIONS",
+            "heading": "Shopify Website Design & Development",
+            "body": "<p>Whether you need a fast, strategic Shopify launch or a fully custom tailored shopping experience.</p>",
+            "button_label": "Learn more"
+          }
+        },
+        {
+          "type": "feature_card",
+          "settings": {
+            "eyebrow_label": "GROW YOUR TEAM WITH TOP TALENT FAST",
+            "heading": "Fractional Shopify Website Teams",
+            "body": "<p>Our Los Angeles-based team provides senior strategy, design, and development to own your website end-to-end.</p>",
+            "button_label": "Learn more"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

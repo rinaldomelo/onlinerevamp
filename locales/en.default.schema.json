@@ -3447,6 +3447,49 @@
         "name": "Media with collection"
       }
     },
+    "new-hero": {
+      "name": "New hero",
+      "settings": {
+        "lead": {
+          "label": "Lead paragraph"
+        },
+        "badge": {
+          "header": {
+            "content": "Partner badge"
+          }
+        },
+        "enable_badge": {
+          "label": "Show partner badge"
+        },
+        "badge_icon": {
+          "label": "Badge icon"
+        },
+        "badge_text": {
+          "label": "Badge text",
+          "info": "Use line breaks for multi-line text (e.g. \"SHOPIFY PLUS\\nPARTNER\")."
+        }
+      },
+      "blocks": {
+        "feature_card": {
+          "name": "Feature card",
+          "settings": {
+            "eyebrow_icon": {
+              "label": "Eyebrow icon"
+            },
+            "eyebrow_label": {
+              "label": "Eyebrow label"
+            },
+            "image": {
+              "label": "Card image",
+              "info": "Landscape works best (e.g. 1200×800). Portrait images are cropped to fill the card."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "New hero"
+      }
+    },
     "rich-text": {
       "name": "Rich text",
       "presets": {
