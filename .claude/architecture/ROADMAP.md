@@ -73,7 +73,7 @@ Today, Layers 1 and 2 exist as user-invoked skills and hand-authored docs. Layer
 | **M8** | Specialist implementation agents | `liquid-agent`, `config-agent`, `assets-agent` as subagents | L | Scaffold merged, runtime not validated |
 | **M9** | Validation agent | Wraps Toolkit + theme-check + Lighthouse | M | Scaffold merged, runtime not validated |
 | **M10** | Deployment agent | Branch + PR + preview comment + merge gating | M | Scaffold merged, runtime not validated |
-| **M11** | Governance + observability | `.claude/logs/` JSONL audit, file-glob permissions, rollback drill | M | Not started |
+| **M11** | Governance + observability | `.claude/logs/` JSONL audit, file-glob permissions, rollback drill | M | Scaffold merged, runtime not validated |
 | **M12** | Phase-2 split + extensions | Planner ≠ Architect; Theme App Extension support | L | Conditional (deferred until criteria met) |
 
 **Effort key:** XS = hours, S = 1 day, M = 2-4 days, L = 1+ week. Solo-dev calendar.
@@ -94,8 +94,8 @@ ADRs follow [Nygard format](https://cognitect.com/blog/2011/11/15/documenting-ar
 | [ADR-004](./adr/ADR-004-skills-tier-split.md) | Two-tier skills strategy: Toolkit (Tier 1) + custom Tier 2 | Accepted | M0 |
 | [ADR-005](./adr/ADR-005-orchestrator-stack.md) | Orchestrator stack: TypeScript + Anthropic Agent SDK | Accepted | M0 |
 | [ADR-006](./adr/ADR-006-combined-planner-architect.md) | Combined Planner+Architect for Phase 1 (criteria for splitting) | Accepted | M7 |
-| ADR-007 | Permissions / file-glob policy per agent | TBD | M11 |
-| ADR-008 | Observability logs: JSONL append-only at `.claude/logs/` | TBD | M11 |
+| [ADR-007](./adr/ADR-007-permissions-policy.md) | Permissions / file-glob policy per agent | Accepted | M11 |
+| [ADR-008](./adr/ADR-008-observability-logs.md) | Observability logs: JSONL append-only at `.claude/logs/` | Accepted | M11 |
 | ADR-009 | Theme App Extension support — boundary between theme repo and app repo | TBD | M12 |
 
 ---

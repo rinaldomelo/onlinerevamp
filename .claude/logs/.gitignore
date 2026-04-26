@@ -1,0 +1,2 @@
+# Audit logs are local per-machine output; don't commit.
+runs/*.jsonl

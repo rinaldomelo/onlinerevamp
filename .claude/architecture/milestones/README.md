@@ -17,7 +17,7 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 | M8 | [M8-specialist-agents.md](./M8-specialist-agents.md) | Spec ready (PR open) |
 | M9 | [M9-validation-agent.md](./M9-validation-agent.md) | Spec ready (PR open) |
 | M10 | [M10-deployment-agent.md](./M10-deployment-agent.md) | Spec ready (PR open) |
-| M11 | *Not yet specced* | Stub below |
+| M11 | [M11-governance.md](./M11-governance.md) | Spec ready (PR open) |
 | M12 | *Not yet specced* | Conditional / deferred |
 
 ---
@@ -25,10 +25,6 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 ## Milestone stubs (just-in-time, expand into full specs when starting)
 
 (M0 and M1 specs are full files; see index above. Stubs below are M2–M12.)
-
-### M11 — Governance + observability
-
-`.claude/logs/runs/<plan-id>.jsonl` JSONL append-only audit log (one record per agent step: input, tools called, output, timestamp). File-glob policy in `.claude/architecture/permissions.yml` enforced by the orchestrator. Rollback drill recorded as `runbooks/rollback.md` and exercised at least once before any unattended overnight runs. ADR-007 (permissions) and ADR-008 (logs) drafted in this milestone. Acceptance: a 5-step plan produces a complete JSONL trace; permissions.yml blocks an out-of-bounds write attempt.
 
 ### M12 — Phase-2 split + theme app extension support
 

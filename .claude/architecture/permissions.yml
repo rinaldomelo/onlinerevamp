@@ -1,0 +1,84 @@
+# File-glob permissions per agent.
+#
+# Loaded by orchestrator/src/orchestrator/policy.ts at runtime. Every write
+# attempted by an agent is matched against its `write_globs`; mismatches
+# throw a PolicyViolationError before the file system is touched.
+#
+# Rule shape:
+#   write_globs: <list of glob patterns the agent may write to>
+#   read_globs:  <list of glob patterns the agent may read; defaults to ['**/*'] minus secrets>
+#   forbidden:   <list of patterns NEVER touched, even if a write_glob would match>
+#
+# Globs follow simple-git's interpretation (extended glob, anchored to repo root).
+
+agents:
+  planner-architect:
+    write_globs: []  # Read-only. Plans + Designs are returned to callers, not written.
+    read_globs:
+      - 'sections/**/*'
+      - 'snippets/**/*'
+      - 'templates/**/*'
+      - 'config/**/*'
+      - 'locales/**/*'
+      - 'layout/**/*'
+      - 'assets/**/*'
+      - '.claude/**/*'
+
+  liquid:
+    write_globs:
+      - 'sections/**/*.liquid'
+      - 'snippets/**/*.liquid'
+      - 'templates/*.liquid'
+    forbidden:
+      - 'config/**/*'
+      - 'assets/**/*'
+      - '.claude/**/*'
+      - '.github/**/*'
+      - 'orchestrator/**/*'
+
+  config:
+    write_globs:
+      - 'templates/*.json'
+      - 'config/settings_data.json'
+      - 'config/settings_schema.json'
+      - 'locales/*.json'
+    forbidden:
+      - 'sections/**/*'
+      - 'snippets/**/*'
+      - 'assets/**/*'
+      - '.claude/**/*'
+      - '.github/**/*'
+      - 'orchestrator/**/*'
+
+  assets:
+    write_globs:
+      - 'assets/**/*.css'
+      - 'assets/**/*.js'
+      - 'assets/**/*.svg'
+      - 'assets/**/*.png'
+      - 'assets/**/*.jpg'
+      - 'assets/**/*.jpeg'
+      - 'assets/**/*.webp'
+    forbidden:
+      - 'sections/**/*'
+      - 'snippets/**/*'
+      - 'templates/**/*'
+      - 'config/**/*'
+      - '.claude/**/*'
+      - '.github/**/*'
+      - 'orchestrator/**/*'
+
+  validation:
+    write_globs: []  # Read-only. Returns decisions, doesn't touch files.
+
+  deployment:
+    write_globs: []  # Operates on git/GitHub, not files. Branch creation is a side effect of `git`.
+
+# Hard ban — paths NO agent may touch under any glob.
+global_forbidden:
+  - '.env'
+  - '.env.*'
+  - '.git/**/*'
+  - 'node_modules/**/*'
+  - '.claude/logs/**/*'
+  - 'orchestrator/dist/**/*'

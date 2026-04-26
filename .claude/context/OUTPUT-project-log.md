@@ -75,6 +75,16 @@ Open items:
   - Plugin install (M1) is per-machine. If a future contributor joins, they re-run `m1-toolkit-quickstart.md`. Mitigation: documented and linked from `CLAUDE.md` in M1.
   - `.mcp.json` at repo root (added in M7) will *also* affect interactive Claude Code sessions. Document the behavior change in the M7 spec when written.
 
+## 2026-04-26 — M11 — Governance + observability (scaffold)
+
+- Branch `feature/m11-governance`. Files: `.claude/architecture/permissions.yml`, ADR-007 (permissions), ADR-008 (observability logs), `orchestrator/src/orchestrator/{policy.ts, logger.ts}`, `.claude/logs/{.gitignore, runs/.gitkeep}`, `runbooks/orchestrator-rollback.md`, smoke test, M11 spec, minimatch dep added.
+- Centralized policy via YAML — every agent's write_globs + global_forbidden defined once. `policy.ts::ensureCanWrite()` gates writes; throws `PolicyViolationError` on mismatch.
+- JSONL audit logging at `.claude/logs/runs/<plan-id>.jsonl` — gitignored, append-only, per-plan. logger.ts is the single write point.
+- Rollback runbook covers 4 scenarios: bad PR, policy violation, credential leak, infinite loop.
+- Decision (ADR-007): policy is YAML, not code. Defense-in-depth = harness regex + central enforcement.
+- Decision (ADR-008): JSONL, no SaaS, 90-day retention, gitignored. js-yaml swap deferred (inline parser sufficient for current YAML shape).
+- Watch-outs: `ensureCanWrite` not yet plumbed into every `writeTheme` (post-merge follow-up); secret redaction tests pending; manual log rotation.
+
 ## 2026-04-26 — M10 — Deployment agent (scaffold)
 
 - Branch `feature/m10-deployment-agent`. Files: `orchestrator/src/agents/deployment/{prompt.md, schema.ts, harness.ts, index.ts}` + smoke test + M10 spec.
