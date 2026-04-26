@@ -75,6 +75,15 @@ Open items:
   - Plugin install (M1) is per-machine. If a future contributor joins, they re-run `m1-toolkit-quickstart.md`. Mitigation: documented and linked from `CLAUDE.md` in M1.
   - `.mcp.json` at repo root (added in M7) will *also* affect interactive Claude Code sessions. Document the behavior change in the M7 spec when written.
 
+## 2026-04-26 — M4 — Preview-URL bot
+
+- Branch `feature/m4-preview-bot` (stacked off M3). Files: `.claude/architecture/ci-staged/.github/workflows/deploy-dev-preview.yml`, `.claude/architecture/preview-themes.md`, M4 spec.
+- Workflow runs on PR open/sync/reopen + paths-filtered to theme files. Pushes to dev theme via Shopify CLI, posts/updates a `comment_tag: preview-url` comment on the PR.
+- `concurrency: dev-preview-<PR>` + `cancel-in-progress: true` → dev theme always reflects the most recent commit, no racing pushes.
+- Decision: recycle single dev theme (not spawn-per-PR) — Shopify caps unpublished themes at 19; per-author rotation deferred until > 1 active dev.
+- Workflow YAML staged at `ci-staged/` (same OAuth scope blocker as M3); user activates via `git mv` after `gh auth refresh`.
+- Watch-outs: `--allow-live=false` flag is critical; CLI JSON shape may shift (mitigated by `jq` fallbacks + raw-output artifact).
+
 ## 2026-04-26 — M3 — CI foundation
 
 - Branch `feature/m3-ci-foundation` (stacked off M2). Files: `.github/workflows/theme-check.yml`, `.env.example`, `.github/CODEOWNERS`, `.claude/architecture/ci-secrets.md`, M3 spec.

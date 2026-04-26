@@ -10,7 +10,7 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 | M1 | [M1-toolkit-mcp-wiring.md](./M1-toolkit-mcp-wiring.md) | Spec ready |
 | M2 | [M2-local-validation.md](./M2-local-validation.md) | Spec ready (PR open) |
 | M3 | [M3-ci-foundation.md](./M3-ci-foundation.md) | Spec ready (PR open) |
-| M4 | *Not yet specced* | Stub below |
+| M4 | [M4-preview-bot.md](./M4-preview-bot.md) | Spec ready (PR open) |
 | M5 | *Not yet specced* | Stub below |
 | M6 | *Not yet specced* | Stub below |
 | M7 | *Not yet specced* | Stub below |
@@ -25,10 +25,6 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 ## Milestone stubs (just-in-time, expand into full specs when starting)
 
 (M0 and M1 specs are full files; see index above. Stubs below are M2–M12.)
-
-### M4 — Preview-URL bot
-
-`.github/workflows/deploy-dev-preview.yml` pushes the PR's branch to a Shopify dev theme via Shopify CLI (`shopify theme push --theme $SHOPIFY_DEV_THEME_ID --allow-live=false --json`), parses the preview URL out of the CLI's JSON output, and posts it as a PR comment via `thollander/actions-comment-pull-request@v2`. Theme rotation strategy: recycle a single per-PR-author dev theme (one per contributor), not spawn-per-PR — Shopify caps unpublished themes at 19. Acceptance: opening a PR posts a working preview URL within ~2 minutes.
 
 ### M5 — Production deploy guardrails
 

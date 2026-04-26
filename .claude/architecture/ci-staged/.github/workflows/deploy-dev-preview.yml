@@ -1,0 +1,85 @@
+name: Deploy Dev Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'sections/**'
+      - 'snippets/**'
+      - 'templates/**'
+      - 'assets/**'
+      - 'config/**'
+      - 'locales/**'
+      - 'layout/**'
+      - 'blocks/**'
+      - 'shopify.theme.toml'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  # Cancel in-flight preview pushes for the same PR — keeps the dev theme
+  # consistent with the latest commit, avoids racing pushes.
+  group: dev-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-dev:
+    name: Push to dev theme + comment preview URL
+    runs-on: ubuntu-latest
+    env:
+      SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
+      SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+      SHOPIFY_DEV_THEME_ID: ${{ secrets.SHOPIFY_DEV_THEME_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli @shopify/theme
+
+      - name: Push branch to dev theme
+        id: push
+        run: |
+          shopify theme push \
+            --theme "$SHOPIFY_DEV_THEME_ID" \
+            --path . \
+            --allow-live=false \
+            --json > push-output.json
+          cat push-output.json
+
+      - name: Extract preview URL
+        id: extract-url
+        run: |
+          PREVIEW_URL=$(jq -r '.theme.preview_url // .theme.previewUrl // empty' push-output.json)
+          if [ -z "$PREVIEW_URL" ]; then
+            echo "::error::No preview URL in CLI output. Inspect push-output.json artifact."
+            exit 1
+          fi
+          echo "preview_url=$PREVIEW_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Comment preview URL on PR
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          comment_tag: preview-url
+          message: |
+            ## Preview deploy
+
+            Theme: \`$SHOPIFY_DEV_THEME_ID\`
+
+            **Preview URL:** ${{ steps.extract-url.outputs.preview_url }}
+
+            Updated automatically on every push.
+          pr_number: ${{ github.event.pull_request.number }}
+
+      - name: Upload CLI output as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shopify-push-output
+          path: push-output.json
+          retention-days: 7

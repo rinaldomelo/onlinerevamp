@@ -46,6 +46,6 @@ Once the workflows are moved out of `ci-staged/`, this folder can be deleted.
 
 (Updated as M3, M4, M5 ship.)
 
-- `theme-check.yml` — M3 (PR-time linting).
-- `deploy-dev-preview.yml` — M4 (per-PR preview push + comment).
-- `deploy-production.yml` — M5 (production deploy on merge to main).
+- `theme-check.yml` — M3 (PR-time linting). ✅ shipped.
+- `deploy-dev-preview.yml` — M4 (per-PR preview push + comment). ✅ shipped.
+- `deploy-production.yml` — M5 (production deploy on merge to main). Coming.

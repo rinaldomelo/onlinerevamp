@@ -66,7 +66,7 @@ Today, Layers 1 and 2 exist as user-invoked skills and hand-authored docs. Layer
 | **M1** | Shopify AI Toolkit (Pattern A) | Plugin install + smoke test + opt-in one-pager | S | Skeleton merged, awaiting install |
 | **M2** | Local validation guardrails | `package.json`, `.theme-check.yml`, `shopify.theme.toml` | S | Code merged, awaiting verification |
 | **M3** | CI foundation | `.github/workflows/theme-check.yml`, secrets baseline, branch protection | M | Code merged, awaiting verification |
-| **M4** | Preview-URL bot | `deploy-dev-preview.yml`, dev-theme rotation, PR comment | M | Not started |
+| **M4** | Preview-URL bot | `deploy-dev-preview.yml`, dev-theme rotation, PR comment | M | Code merged, awaiting verification |
 | **M5** | Production deploy guardrails | `deploy-production.yml`, GitHub envs, rollback playbook | M | Not started |
 | **M6** | Custom skills evolution (Tier 2) | New `.claude/skills/`: theme-inspect, liquid-edit, config-edit, assets-edit, validation, manage-feature-branch | M | Not started |
 | **M7** | Planner+Architect agent | `.claude/agents/planner-architect/` via Agent SDK + `.mcp.json` (Pattern B) | L | Not started |
