@@ -75,6 +75,14 @@ Open items:
   - Plugin install (M1) is per-machine. If a future contributor joins, they re-run `m1-toolkit-quickstart.md`. Mitigation: documented and linked from `CLAUDE.md` in M1.
   - `.mcp.json` at repo root (added in M7) will *also* affect interactive Claude Code sessions. Document the behavior change in the M7 spec when written.
 
+## 2026-04-26 — M3 — CI foundation
+
+- Branch `feature/m3-ci-foundation` (stacked off M2). Files: `.github/workflows/theme-check.yml`, `.env.example`, `.github/CODEOWNERS`, `.claude/architecture/ci-secrets.md`, M3 spec.
+- Workflow runs `shopify theme check` + `npm run format:check` on every PR touching theme paths. Hard-fails (`continue-on-error: false`).
+- Secrets catalog: `SHOPIFY_CLI_THEME_TOKEN`, `SHOPIFY_STORE_DOMAIN`, `SHOPIFY_DEV_THEME_ID`, `SHOPIFY_STAGING_THEME_ID`, `SHOPIFY_PROD_THEME_ID`. Set via `gh secret set` per pre-flight.
+- Branch protection + GitHub Environments are admin-UI only; documented in `ci-secrets.md` rather than auto-configured.
+- Watch-outs: first CI run will likely be red until the codebase is normalized via prettier; expected. theme-check baseline noise is expected too — disable rules only with documented justification.
+
 ## 2026-04-26 — M2 — Local validation guardrails
 
 - Branch `feature/m2-local-validation` (stacked off M1). Files: `package.json`, `.theme-check.yml`, `shopify.theme.toml`, `.shopifyignore`, `.claude/architecture/local-dev.md`, M2 spec.

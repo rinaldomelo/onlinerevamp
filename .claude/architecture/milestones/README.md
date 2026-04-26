@@ -9,7 +9,7 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 | M0 | [M0-architecture-prep.md](./M0-architecture-prep.md) | In progress |
 | M1 | [M1-toolkit-mcp-wiring.md](./M1-toolkit-mcp-wiring.md) | Spec ready |
 | M2 | [M2-local-validation.md](./M2-local-validation.md) | Spec ready (PR open) |
-| M3 | *Not yet specced* | Stub below |
+| M3 | [M3-ci-foundation.md](./M3-ci-foundation.md) | Spec ready (PR open) |
 | M4 | *Not yet specced* | Stub below |
 | M5 | *Not yet specced* | Stub below |
 | M6 | *Not yet specced* | Stub below |
@@ -25,10 +25,6 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 ## Milestone stubs (just-in-time, expand into full specs when starting)
 
 (M0 and M1 specs are full files; see index above. Stubs below are M2–M12.)
-
-### M3 — CI foundation
-
-`.github/workflows/theme-check.yml` runs Theme Check on every PR touching `sections/`, `snippets/`, `templates/`, `assets/`, `config/`, `locales/`, `layout/`, or the workflow itself. `.env.example` documents the secrets we'll need across milestones. Branch protection rules on `main` and `staging` require the theme-check job to pass before merge. Acceptance: a deliberately broken Liquid file blocks PR merge.
 
 ### M4 — Preview-URL bot
 

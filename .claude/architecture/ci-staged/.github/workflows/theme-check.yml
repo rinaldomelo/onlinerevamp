@@ -1,0 +1,62 @@
+name: Theme Check
+
+on:
+  pull_request:
+    paths:
+      - 'sections/**'
+      - 'snippets/**'
+      - 'templates/**'
+      - 'assets/**'
+      - 'config/**'
+      - 'locales/**'
+      - 'layout/**'
+      - 'blocks/**'
+      - '.theme-check.yml'
+      - 'package.json'
+      - '.github/workflows/theme-check.yml'
+  push:
+    branches:
+      - main
+      - staging
+      - development
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  theme-check:
+    name: theme-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Shopify CLI (provides theme-check)
+        run: npm install -g @shopify/cli @shopify/theme
+
+      - name: Run theme-check
+        id: theme-check
+        run: shopify theme check --config .theme-check.yml --output text
+        continue-on-error: false
+
+  format-check:
+    name: prettier --check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dev dependencies
+        run: npm ci || npm install
+
+      - name: Verify formatting
+        run: npm run format:check

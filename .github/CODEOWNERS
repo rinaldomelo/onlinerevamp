@@ -1,0 +1,23 @@
+# Online Revamp CODEOWNERS
+#
+# Solo dev, but CODEOWNERS still serves a purpose:
+# - GitHub auto-requests review from the listed user on every PR.
+# - When the team grows, ownership is documented per directory.
+#
+# Format: <pattern> <owner> [<owner>...]
+# https://docs.github.com/en/repositories/managing-your-repositories-settings-and-customizations/customizing-your-repository/about-code-owners
+
+# Default — Rinaldo owns everything until ownership splits.
+* @rinaldomelo
+
+# Theme-pipeline workflows — DevOps changes.
+/.github/ @rinaldomelo
+
+# Architecture / ADRs — require owner review when these change to prevent drift.
+/.claude/architecture/ @rinaldomelo
+
+# Orchestrator (lands in M7+).
+/orchestrator/ @rinaldomelo
+
+# Skills layer.
+/.claude/skills/ @rinaldomelo
