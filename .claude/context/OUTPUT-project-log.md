@@ -75,6 +75,14 @@ Open items:
   - Plugin install (M1) is per-machine. If a future contributor joins, they re-run `m1-toolkit-quickstart.md`. Mitigation: documented and linked from `CLAUDE.md` in M1.
   - `.mcp.json` at repo root (added in M7) will *also* affect interactive Claude Code sessions. Document the behavior change in the M7 spec when written.
 
+## 2026-04-26 — M10 — Deployment agent (scaffold)
+
+- Branch `feature/m10-deployment-agent`. Files: `orchestrator/src/agents/deployment/{prompt.md, schema.ts, harness.ts, index.ts}` + smoke test + M10 spec.
+- Encodes `.claude/rules/git-workflow.md` verbatim. Refuses on env branches, refuses on `needs_fixes` validation, marks `human_review` as `wait_for_human`.
+- Pair-review-required inferred from `targetEnv ∈ {staging, main}` and surfaced in the response.
+- Real git + octokit calls via M7 tool wrappers. `GITHUB_TOKEN` required at runtime.
+- Watch-outs: scaffold doesn't auto-merge anything; even on `pass` + `development`, only opens a PR. Auto-merge is a deferred enhancement post-M11.
+
 ## 2026-04-26 — M9 — Validation agent (scaffold)
 
 - Branch `feature/m9-validation-agent`. Files: `orchestrator/src/agents/validation/{prompt.md, harness.ts, schema.ts, index.ts}` + smoke test + M9 spec.

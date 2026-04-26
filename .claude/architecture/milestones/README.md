@@ -16,7 +16,7 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 | M7 | [M7-planner-architect.md](./M7-planner-architect.md) | Spec ready (PR open) |
 | M8 | [M8-specialist-agents.md](./M8-specialist-agents.md) | Spec ready (PR open) |
 | M9 | [M9-validation-agent.md](./M9-validation-agent.md) | Spec ready (PR open) |
-| M10 | *Not yet specced* | Stub below |
+| M10 | [M10-deployment-agent.md](./M10-deployment-agent.md) | Spec ready (PR open) |
 | M11 | *Not yet specced* | Stub below |
 | M12 | *Not yet specced* | Conditional / deferred |
 
@@ -25,10 +25,6 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 ## Milestone stubs (just-in-time, expand into full specs when starting)
 
 (M0 and M1 specs are full files; see index above. Stubs below are M2–M12.)
-
-### M10 — Deployment agent
-
-Encodes the 3-env workflow (`.claude/rules/git-workflow.md`) verbatim. Creates feature branch, commits with structured message, pushes, opens PR, posts preview URL comment, gates merge by env. Honors pair-review-required-for-staging-and-main. Acceptance: zero-touch from green validation → PR open with preview URL on a routine feature.
 
 ### M11 — Governance + observability
 
