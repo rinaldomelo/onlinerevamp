@@ -1,0 +1,37 @@
+{
+  "name": "onlinerevamp-theme",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Online Revamp — Sleek (FoxEcom) v2.2.0 Shopify theme rebuild. This package.json exists for tooling (theme-check, prettier, scripts); the theme itself is plain Liquid + JSON + JS pushed via Shopify CLI.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "lint:theme": "shopify theme check",
+    "lint:theme:auto-correct": "shopify theme check --auto-correct",
+    "format": "prettier --write \"**/*.{json,liquid,css,md,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{json,liquid,css,md,yml,yaml}\"",
+    "dev": "shopify theme dev --environment=development",
+    "preview": "shopify theme push --environment=development --unpublished --json",
+    "validate": "npm run lint:theme && npm run format:check"
+  },
+  "devDependencies": {
+    "@shopify/prettier-plugin-liquid": "^1.5.0",
+    "prettier": "^3.3.3"
+  },
+  "prettier": {
+    "plugins": [
+      "@shopify/prettier-plugin-liquid"
+    ],
+    "printWidth": 120,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.liquid",
+        "options": {
+          "singleQuote": false
+        }
+      }
+    ]
+  }
+}

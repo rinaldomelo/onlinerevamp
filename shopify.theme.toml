@@ -1,0 +1,33 @@
+# shopify.theme.toml — Online Revamp environments
+#
+# Each [environments.*] stanza maps an env name to a store + theme ID, so
+# Shopify CLI commands can target them by name:
+#
+#   shopify theme dev --environment=development
+#   shopify theme push --environment=staging --unpublished
+#   shopify theme push --environment=production --allow-live
+#
+# Theme IDs are filled in by the user after the dev/staging/prod themes
+# are created in the Shopify admin. Until then, this file is a template;
+# CLI commands using `--environment` will error helpfully.
+#
+# Auth: Shopify CLI prompts for OAuth on first use locally. CI uses
+# SHOPIFY_CLI_THEME_TOKEN (see .env.example, M3).
+
+[environments.development]
+store = "TODO-fill-in-store-domain.myshopify.com"
+theme = "TODO-fill-in-development-theme-id"
+ignore = ["config/settings_data.json"]
+# `ignore` keeps the dev theme's settings_data isolated from prod — merchant-
+# tweaked content shouldn't get clobbered when a feature branch pushes.
+
+[environments.staging]
+store = "TODO-fill-in-store-domain.myshopify.com"
+theme = "TODO-fill-in-staging-theme-id"
+ignore = ["config/settings_data.json"]
+
+[environments.production]
+store = "TODO-fill-in-store-domain.myshopify.com"
+theme = "TODO-fill-in-production-theme-id"
+# Prod intentionally does NOT ignore settings_data.json — settings changes
+# made in the editor flow back through GitHub Integration / CLI sync.

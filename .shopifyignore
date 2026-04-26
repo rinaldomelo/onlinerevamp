@@ -1,0 +1,45 @@
+# .shopifyignore — files NOT pushed to Shopify by `shopify theme push`.
+#
+# Shopify CLI will refuse to push files matching these patterns. Use this
+# to keep tooling, CI, agent docs, and the orchestrator out of the live
+# theme bundle.
+
+# Agent / architecture docs (theme-side knowledge, not theme code)
+.claude/
+
+# CI workflows and PR templates
+.github/
+
+# Orchestrator (TypeScript agent code — runs OUT of the theme)
+orchestrator/
+
+# Runbooks for ops
+runbooks/
+
+# Tooling
+node_modules/
+package.json
+package-lock.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
+.theme-check.yml
+.env
+.env.local
+.env.*.local
+.env.example
+.prettierrc
+.prettierrc.json
+.prettierignore
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+.claude/logs/runs/
+
+# Plan / scratch
+.claude/plans/

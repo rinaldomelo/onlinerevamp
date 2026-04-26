@@ -1,0 +1,64 @@
+# theme-check config — Online Revamp / Sleek v2.2.0 (FoxEcom)
+#
+# Tuned for the FoxTheme conventions surfaced by the existing theme analysis
+# (.claude/context/OUTPUT-initial-theme-analysis.md). Disabled rules are
+# documented inline with the FoxTheme behavior that justifies the disable.
+# Re-evaluate when the theme is updated by FoxEcom.
+#
+# Run: npx shopify theme check
+#       npx shopify theme check --auto-correct  (safe fixes only)
+
+# Treat the repo root as the theme root.
+root: '.'
+
+# Folders that are NOT part of the theme bundle (orchestrator, agent docs, CI).
+ignore:
+  - 'node_modules/**/*'
+  - '.claude/**/*'
+  - '.github/**/*'
+  - 'orchestrator/**/*'
+  - 'runbooks/**/*'
+
+# Severity legend (theme-check):
+#   error — fails CI, blocks merge
+#   suggestion — informational, doesn't fail CI
+#   disabled — rule turned off
+
+# ────────────────────────────────────────────────────────────────────
+# Performance & quality rules (kept on by default — no overrides)
+# ────────────────────────────────────────────────────────────────────
+
+# RemoteAsset, AssetSizeAppBlockJavaScript, AssetSizeAppBlockCSS,
+# AssetSizeCSS, AssetSizeJavaScript, ImgWidthAndHeight, ImgLazyLoading,
+# ContentForHeaderModification, AssetUrlFilters, ParserBlockingScript,
+# UndefinedObject, UnusedAssign, UnusedSnippet, MissingTemplate, etc.
+# are all kept at default severity. If a rule starts producing a flood
+# of false positives during the M3 CI run, disable it here with a
+# comment justifying the FoxTheme cause.
+
+# ────────────────────────────────────────────────────────────────────
+# Tunable rules (keep loose for now; tighten as the theme stabilizes)
+# ────────────────────────────────────────────────────────────────────
+
+LiquidTag:
+  enabled: true
+  severity: suggestion
+
+UnusedAssign:
+  enabled: true
+  severity: suggestion
+
+# FoxTheme uses many top-level translation keys via t: filter that may not
+# exist in every locale. Keep at suggestion until M2 covers locales fully.
+TranslationKeyExists:
+  enabled: true
+  severity: suggestion
+
+# ────────────────────────────────────────────────────────────────────
+# Rules disabled with justification
+# ────────────────────────────────────────────────────────────────────
+
+# (No disables on day-1. Add entries here as M3 CI surfaces FoxTheme
+# patterns that conflict with default rules. Each disable must include
+# the rule name, a one-line reason, and a link to the offending file
+# pattern.)

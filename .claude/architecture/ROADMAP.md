@@ -64,7 +64,7 @@ Today, Layers 1 and 2 exist as user-invoked skills and hand-authored docs. Layer
 |---|---|---|---|---|
 | **M0** | Architecture prep | This roadmap + ADR-001..ADR-005 + 2 milestone specs | XS | **In progress** |
 | **M1** | Shopify AI Toolkit (Pattern A) | Plugin install + smoke test + opt-in one-pager | S | Skeleton merged, awaiting install |
-| **M2** | Local validation guardrails | `package.json`, `.theme-check.yml`, `shopify.theme.toml` | S | Not started |
+| **M2** | Local validation guardrails | `package.json`, `.theme-check.yml`, `shopify.theme.toml` | S | Code merged, awaiting verification |
 | **M3** | CI foundation | `.github/workflows/theme-check.yml`, secrets baseline, branch protection | M | Not started |
 | **M4** | Preview-URL bot | `deploy-dev-preview.yml`, dev-theme rotation, PR comment | M | Not started |
 | **M5** | Production deploy guardrails | `deploy-production.yml`, GitHub envs, rollback playbook | M | Not started |

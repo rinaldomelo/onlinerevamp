@@ -75,6 +75,15 @@ Open items:
   - Plugin install (M1) is per-machine. If a future contributor joins, they re-run `m1-toolkit-quickstart.md`. Mitigation: documented and linked from `CLAUDE.md` in M1.
   - `.mcp.json` at repo root (added in M7) will *also* affect interactive Claude Code sessions. Document the behavior change in the M7 spec when written.
 
+## 2026-04-26 — M2 — Local validation guardrails
+
+- Branch `feature/m2-local-validation` (stacked off M1). Files: `package.json`, `.theme-check.yml`, `shopify.theme.toml`, `.shopifyignore`, `.claude/architecture/local-dev.md`, M2 spec.
+- `package.json` has scripts only — no runtime deps. theme-check ships with Shopify CLI; prettier + Liquid plugin are devDeps the user installs once.
+- `.theme-check.yml` starts with default rule severities; "Rules disabled with justification" section prepared for additions when M3's first CI run surfaces FoxTheme false positives. No disables day-1.
+- `shopify.theme.toml` env stanzas have TODO placeholders for store domain + theme IDs — user fills in pre-flight.
+- `.shopifyignore` excludes `.claude/`, `.github/`, `orchestrator/`, `runbooks/`, lockfiles, prettier config, OS artifacts.
+- Watch-outs: prettier first-run will reformat existing Liquid; recommend a dedicated normalize commit before CI hard-fails on `format:check`. theme-check baseline is unknown until first run — expect noise, document patterns before disabling rules.
+
 ## 2026-04-26 — M1 — Toolkit quickstart skeleton
 
 - Branch `chore/m1-toolkit-quickstart` (stacked off M0). Files: `.claude/architecture/m1-toolkit-quickstart.md` with TODO markers + `CLAUDE.md` Shopify-Dev-MCP section updated with a pointer to the quickstart.
