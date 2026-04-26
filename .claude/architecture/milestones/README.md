@@ -24,6 +24,8 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 
 ## Milestone stubs (just-in-time, expand into full specs when starting)
 
+(M0 and M1 specs are full files; see index above. Stubs below are M2–M12.)
+
 ### M2 — Local validation guardrails
 
 Author `package.json` (theme-check, prettier, lint scripts), `.theme-check.yml` (rule config tuned to this theme — disable rules that fight FoxTheme conventions), `shopify.theme.toml` (env stanzas: `[environments.development]`, `[environments.staging]`, `[environments.production]` mapping each to its theme ID and store domain). Document local-dev quickstart (`shopify theme dev`, theme-check usage, prettier setup) at `.claude/architecture/local-dev.md`. Acceptance: `npx theme-check` runs locally with zero errors on a clean checkout, and `shopify theme dev --environment=development` boots a preview.

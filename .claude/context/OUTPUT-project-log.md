@@ -75,6 +75,13 @@ Open items:
   - Plugin install (M1) is per-machine. If a future contributor joins, they re-run `m1-toolkit-quickstart.md`. Mitigation: documented and linked from `CLAUDE.md` in M1.
   - `.mcp.json` at repo root (added in M7) will *also* affect interactive Claude Code sessions. Document the behavior change in the M7 spec when written.
 
+## 2026-04-26 — M1 — Toolkit quickstart skeleton
+
+- Branch `chore/m1-toolkit-quickstart` (stacked off M0). Files: `.claude/architecture/m1-toolkit-quickstart.md` with TODO markers + `CLAUDE.md` Shopify-Dev-MCP section updated with a pointer to the quickstart.
+- Plugin install (`/plugin marketplace add ... && /plugin install ...`) is interactive in Claude Code and cannot be run autonomously. Skeleton lands in this PR; user fills in smoke-test outputs after installing.
+- Decision (per ADR-001): Pattern A only in M1; Pattern B (`.mcp.json` + programmatic MCP client) deferred to M7.
+- Watch-outs: skill names may drift between Toolkit releases; quickstart links to the canonical README rather than redocumenting the skill set.
+
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 # OUTPUT-project-log.md — v1.0

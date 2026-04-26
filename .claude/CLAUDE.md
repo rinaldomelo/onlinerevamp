@@ -173,6 +173,8 @@ Do not minify files — Shopify handles this automatically. Prioritize human-rea
   Use the MCP to validate Liquid tags, filters, and objects when unsure.
   If the MCP is not configured yet. Ask the user if they want to connect it. @shopify/dev-mcp@latest
 
+  Pattern A (interactive Claude Code plugin) is the supported install path — see `.claude/architecture/m1-toolkit-quickstart.md` for the install commands and skill list. Pattern B (programmatic `.mcp.json` for the autonomous orchestrator) lands in M7.
+
 ## How This Project Is Structured
 
 ### Context — `.claude/context/`
