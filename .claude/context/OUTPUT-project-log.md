@@ -53,6 +53,28 @@ Open items:
   - Pure-black backgrounds can read as too stark for image-heavy sections — keep an eye during photography swaps.
   - Footer schema default is now `scheme-inverse`, so any future `/start-feature` that re-instantiates the footer will default to dark. If the brand ever moves back to a light footer, that default needs to flip back too.
 
+## 2026-04-25 — Architecture: M0 — agentic orchestration roadmap drafted
+
+- **What was built:** Long-form architecture roadmap landing the agentic Shopify-theme-system design from `~/Downloads/shopify-agentic-theme-system_1.md` into this repo. New folder `.claude/architecture/` contains `ROADMAP.md` + 5 ADRs + 2 milestone specs + an index. Branch `chore/architecture-m0`, PR target `development`.
+- **Files added (9):** `.claude/architecture/ROADMAP.md`, `adr/ADR-001..ADR-005-*.md`, `milestones/README.md`, `milestones/M0-architecture-prep.md`, `milestones/M1-toolkit-mcp-wiring.md`. Plus this log entry.
+- **Key decisions (now Accepted ADRs):**
+  - **ADR-001** Adopt Shopify AI Toolkit via Pattern A (Claude Code plugin install in M1). Pattern B (programmatic MCP) deferred to M7 — no consumer for it before then. Pattern C (vendoring) skipped entirely.
+  - **ADR-002** When M7 lands, declare `@shopify/dev-mcp` in repo-root `.mcp.json`. Don't add the file before there's a consumer — dead config rots.
+  - **ADR-003** Use Shopify CLI push from GitHub Actions for *all* env promotions (dev preview / staging / prod). Reject GitHub Integration because it can't gate on theme-check / Lighthouse before the push.
+  - **ADR-004** Two-tier skills: Tier 1 = Shopify AI Toolkit (don't reimplement); Tier 2 = `.claude/skills/` (our orchestration). Existing 4 skills are already Tier 2 — no rename or restructure needed.
+  - **ADR-005** Orchestrator is TypeScript on Node 20 + Anthropic Agent SDK + pnpm. Code lives at top-level `orchestrator/`, excluded from Shopify push via `.shopifyignore`. Theme repo and orchestrator stay in the *same* repo until M12 (criteria-based split).
+- **Roadmap shape:** 13 milestones (M0–M12). M0 = this. M1–M5 = pure DevOps (no LLM in the loop): Toolkit plugin, local validation, CI, preview-URL bot, prod deploy guardrails. M6 = Tier-2 skills evolution. M7–M10 = Agent SDK orchestrator (planner+architect, then specialists, then validation, then deployment). M11 = governance/observability/audit logs. M12 = conditional Phase-2 split + Theme App Extension support, only when criteria met.
+- **Out of scope (recorded so they don't get lost):**
+  - Migration platform from source doc §15.5 (WooCommerce/Wix/Wordpress → Shopify) is *not* on this roadmap. Gets its own when prioritized.
+  - ADR-006..ADR-009 are deferred to their owning milestones (M7, M11, M11, M12 respectively). Don't pre-write them.
+  - Vendoring the source doc into `.claude/architecture/source/` skipped this round; reference path stays at `~/Downloads/shopify-agentic-theme-system_1.md`. Add the vendored copy in a follow-up if other contributors join.
+- **Sequencing principle (the load-bearing one):** Cheapest-and-highest-leverage first. Validation/CI infra (M1–M5) before any agent layer (M7+), because *agents without automated validation are worse than no agents at all.*
+- **Risks / watch-outs:**
+  - Doc rot. Mitigation: every milestone closes by flipping its row in `ROADMAP.md` to `Done` and appending a project-log entry — same protocol the dark-mode and new-hero features already follow.
+  - Architecture astronaut risk. Mitigation: only 5 ADRs in M0, only the forks that actually block M1. Rest deferred.
+  - Plugin install (M1) is per-machine. If a future contributor joins, they re-run `m1-toolkit-quickstart.md`. Mitigation: documented and linked from `CLAUDE.md` in M1.
+  - `.mcp.json` at repo root (added in M7) will *also* affect interactive Claude Code sessions. Document the behavior change in the M7 spec when written.
+
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 # OUTPUT-project-log.md — v1.0
