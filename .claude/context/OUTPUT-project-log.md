@@ -38,6 +38,21 @@ Open items:
   - No branch protection rules configured on GitHub. Pair-review enforcement currently relies on convention only — consider enabling required reviews on `staging` and `main` once the team is set up.
   - No CI/CD wired up yet; nothing prevents direct push to `main`/`staging` from a local machine. Worth revisiting when feature work starts.
 
+## 2026-04-25 — Feature: dark-mode-shell (homepage + header + footer)
+
+- **What was built:** Site shell renders in dark mode by default — black background, white text, white-bg buttons with black labels. Branch `feature/dark-mode-shell`, commit `4bf14df`, PR #1 to `development` (https://github.com/rinaldomelo/onlinerevamp/pull/1).
+- **Files touched (4):** `templates/index.json` (37 `color_scheme` / `section_color_scheme` values), `sections/header-group.json` (main header), `sections/footer-group.json` (footer), `sections/footer.liquid` (schema default).
+- **Key decision — reuse `scheme-inverse` instead of defining a brand-tuned dark scheme.** `scheme-inverse` already exists in `config/settings_data.json` (`bg #000000 / text #ffffff / button #ffffff / button_label #000000`) and was already used by one homepage block. Reassigning every section's `color_scheme` to it is a pure-config change — no new scheme, no CSS overrides, no JS. Trade-off accepted: pure-black palette vs. softer brand-tuned dark (e.g. `#0F1115` bg). Revisit if the brand wants something less stark.
+- **Skipped formal feature scaffolding.** No `feature.md`, no `OUTPUT-implementation-plan.md`, no `OUTPUT-qa-debugging.md` — this was a small reassignment, not a new component build. The feature branch itself is the rollback "backup." Don't treat this as the standard pattern: future features that build new components/JS should still go through `/start-feature` → `/scope-feature` → `/plan-feature-implemenation`.
+- **Permanent dark mode, not user-toggleable.** No JS toggle, no system-pref detection, no persistence. v1 = brand identity is dark.
+- **Out of scope (potential follow-ups, captured here so they don't get lost):**
+  - `.btn--white` in `assets/theme.css` is hardcoded `#fff` — does not respect any scheme. Confirmed visually fine on dark for now; revisit if any usage looks wrong.
+  - Slideshow `image_overlay_opacity` values were tuned for light backgrounds — confirmed visually OK at QA, leaving as-is.
+  - Product / collection / cart / blog templates still render light. They'll look jarring next to a dark homepage. Plan a follow-up feature `dark-mode-templates` to extend the shell-wide treatment.
+- **Risks / watch-outs:**
+  - Pure-black backgrounds can read as too stark for image-heavy sections — keep an eye during photography swaps.
+  - Footer schema default is now `scheme-inverse`, so any future `/start-feature` that re-instantiates the footer will default to dark. If the brand ever moves back to a light footer, that default needs to flip back too.
+
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 # OUTPUT-project-log.md — v1.0

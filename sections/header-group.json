@@ -76,7 +76,7 @@
       "type": "header",
       "settings": {
         "container": "fixed",
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-inverse",
         "header_layout": "left-center",
         "sticky_header": "always",
         "menu_trigger": "hover",
