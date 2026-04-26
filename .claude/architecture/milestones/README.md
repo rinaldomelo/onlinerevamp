@@ -13,7 +13,7 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 | M4 | [M4-preview-bot.md](./M4-preview-bot.md) | Spec ready (PR open) |
 | M5 | [M5-prod-deploy.md](./M5-prod-deploy.md) | Spec ready (PR open) |
 | M6 | [M6-tier2-skills.md](./M6-tier2-skills.md) | Spec ready (PR open) |
-| M7 | *Not yet specced* | Stub below |
+| M7 | [M7-planner-architect.md](./M7-planner-architect.md) | Spec ready (PR open) |
 | M8 | *Not yet specced* | Stub below |
 | M9 | *Not yet specced* | Stub below |
 | M10 | *Not yet specced* | Stub below |
@@ -25,10 +25,6 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 ## Milestone stubs (just-in-time, expand into full specs when starting)
 
 (M0 and M1 specs are full files; see index above. Stubs below are M2–M12.)
-
-### M7 — Planner+Architect agent (combined, Phase 1)
-
-First Agent SDK orchestrator. Single combined Planner+Architect agent at `.claude/agents/planner-architect/`. Reads `feature.md`, the theme analysis, and current Shopify docs (via Toolkit MCP — Pattern B wired in this milestone via `.mcp.json`). Emits Plan + Design back into the feature folder. Replaces `/plan-feature-implemenation` for routine features; complex ones still use the human skill. ADR-006 captures *when to split* the agent. Acceptance: one already-shipped feature is re-planned end-to-end by the agent, output reviewed against the human-authored plan.
 
 ### M8 — Specialist implementation agents
 

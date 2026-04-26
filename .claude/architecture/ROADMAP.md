@@ -69,7 +69,7 @@ Today, Layers 1 and 2 exist as user-invoked skills and hand-authored docs. Layer
 | **M4** | Preview-URL bot | `deploy-dev-preview.yml`, dev-theme rotation, PR comment | M | Code merged, awaiting verification |
 | **M5** | Production deploy guardrails | `deploy-production.yml`, GitHub envs, rollback playbook | M | Code merged, awaiting verification |
 | **M6** | Custom skills evolution (Tier 2) | New `.claude/skills/`: theme-inspect, liquid-edit, config-edit, assets-edit, validation, manage-feature-branch | M | Code merged, awaiting verification |
-| **M7** | Planner+Architect agent | `.claude/agents/planner-architect/` via Agent SDK + `.mcp.json` (Pattern B) | L | Not started |
+| **M7** | Planner+Architect agent | `orchestrator/src/agents/planner-architect/` via Agent SDK + `.mcp.json` (Pattern B) | L | Scaffold merged, runtime not validated |
 | **M8** | Specialist implementation agents | `liquid-agent`, `config-agent`, `assets-agent` as subagents | L | Not started |
 | **M9** | Validation agent | Wraps Toolkit + theme-check + Lighthouse | M | Not started |
 | **M10** | Deployment agent | Branch + PR + preview comment + merge gating | M | Not started |
@@ -93,7 +93,7 @@ ADRs follow [Nygard format](https://cognitect.com/blog/2011/11/15/documenting-ar
 | [ADR-003](./adr/ADR-003-shopify-cli-deploy.md) | Use Shopify CLI push (not GitHub integration) for deploys | Accepted | M0 |
 | [ADR-004](./adr/ADR-004-skills-tier-split.md) | Two-tier skills strategy: Toolkit (Tier 1) + custom Tier 2 | Accepted | M0 |
 | [ADR-005](./adr/ADR-005-orchestrator-stack.md) | Orchestrator stack: TypeScript + Anthropic Agent SDK | Accepted | M0 |
-| ADR-006 | Combined Planner+Architect for Phase 1 (criteria for splitting) | TBD | M7 |
+| [ADR-006](./adr/ADR-006-combined-planner-architect.md) | Combined Planner+Architect for Phase 1 (criteria for splitting) | Accepted | M7 |
 | ADR-007 | Permissions / file-glob policy per agent | TBD | M11 |
 | ADR-008 | Observability logs: JSONL append-only at `.claude/logs/` | TBD | M11 |
 | ADR-009 | Theme App Extension support — boundary between theme repo and app repo | TBD | M12 |

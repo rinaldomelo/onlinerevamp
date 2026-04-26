@@ -75,6 +75,15 @@ Open items:
   - Plugin install (M1) is per-machine. If a future contributor joins, they re-run `m1-toolkit-quickstart.md`. Mitigation: documented and linked from `CLAUDE.md` in M1.
   - `.mcp.json` at repo root (added in M7) will *also* affect interactive Claude Code sessions. Document the behavior change in the M7 spec when written.
 
+## 2026-04-26 — M7 — Planner+Architect agent (scaffold)
+
+- Branch `feature/m7-planner-architect` (stacked off M6). Files: `.mcp.json`, `orchestrator/{package.json, tsconfig.json, README.md, src/types.ts, src/tools/*, src/orchestrator/*, src/agents/planner-architect/*, src/index.ts, tests/}`, ADR-006, M7 spec.
+- **Scaffold only.** `pnpm install` not run. `tsc` not run. `vitest` not executed. Specifically `tools/shopify-dev-mcp.ts::createShopifyDevMcpClient` and `agents/planner-architect/model.ts::callPlannerArchitectModel` throw "not implemented yet." User accepts trade-off per /loop framing.
+- Pattern B (Toolkit MCP) activated by `.mcp.json` at repo root — interactive Claude Code sessions will now ALSO reach the Toolkit through the MCP server in addition to the Pattern A plugin.
+- Combined planner-architect agent per ADR-006 (Phase-1 recommendation from source doc §5.2). Split criteria documented: ≥2 of {prompt > 6k tokens, multi-theme conflicts, persistent attribution problems, Theme App Extension feature}.
+- Decision: orchestrator lives in `orchestrator/` at repo root (not separate repo per ADR-005 / decisions in M0). Excluded from theme push via `.shopifyignore` (added in M2).
+- Watch-outs: package version drift (Anthropic Agent SDK in flux); MCP cold-start latency (revisit if > 5s); prompt drift (monitor for M12 split-trigger).
+
 ## 2026-04-26 — M6 — Tier-2 custom skills
 
 - Branch `feature/m6-tier2-skills` (stacked off M5). Files: 6 `.claude/skills/<skill>/SKILL.md` (inspect-theme, edit-liquid-section, edit-config-json, edit-assets, run-validation, manage-feature-branch) + M6 spec.
