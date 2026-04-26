@@ -6,7 +6,7 @@
         "slide_JhU8hg": {
           "type": "slide",
           "settings": {
-            "color_scheme": "scheme-1",
+            "color_scheme": "scheme-inverse",
             "image_overlay_opacity": 0,
             "show_content_in_container": true,
             "content_position": "middle-left",
@@ -24,7 +24,7 @@
         "slide_U9bPyj": {
           "type": "slide",
           "settings": {
-            "color_scheme": "scheme-1",
+            "color_scheme": "scheme-inverse",
             "image_overlay_opacity": 0,
             "show_content_in_container": true,
             "content_position": "middle-right",
@@ -42,7 +42,7 @@
         "slide_pEkPxY": {
           "type": "slide",
           "settings": {
-            "color_scheme": "scheme-1",
+            "color_scheme": "scheme-inverse",
             "image_overlay_opacity": 0,
             "show_content_in_container": true,
             "content_position": "middle-left",
@@ -110,7 +110,7 @@
         "tab_AfgNn8"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-inverse",
         "header_layout": "horizontal",
         "heading": "",
         "heading_size": "h1",
@@ -168,7 +168,7 @@
         ".highlight-text-with-image {--blocks-radius: 13rem; --blocks-radius-mobile: 13rem;}"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-inverse",
         "text": "Make you look [img1] and <br>feel glowy [img2] and healthy [img3]",
         "heading_size": "hd1",
         "alignment": "center",
@@ -218,7 +218,7 @@
         "featured_collection_inyzwk"
       ],
       "settings": {
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-inverse",
         "layout": "split",
         "subheading": "Care for your skin",
         "heading": "Natural self care products",
@@ -251,7 +251,7 @@
         "product_tNmVzg": {
           "type": "product",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-inverse",
             "horizontal_position": 77,
             "vertical_position": 48
           }
@@ -259,7 +259,7 @@
         "product_63XUQd": {
           "type": "product",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-inverse",
             "horizontal_position": 45,
             "vertical_position": 54
           }
@@ -267,7 +267,7 @@
         "product_bNtrwr": {
           "type": "product",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-inverse",
             "horizontal_position": 19,
             "vertical_position": 41
           }
@@ -282,7 +282,7 @@
         ".section__header--text {max-width: 44rem; margin: 0 auto;}"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-inverse",
         "heading": "Level up skincare routine with the bundle",
         "heading_size": "h1",
         "heading_highlight_style": "none",
@@ -355,7 +355,7 @@
         "@media (max-width: 767px) {.multicolumn-card__text br {display: none; }}"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-inverse",
         "heading": "Featured by Press",
         "heading_size": "h1",
         "heading_highlight_style": "none",
@@ -380,7 +380,7 @@
         "image_card_wqEYFA": {
           "type": "image_card",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-inverse",
             "image_overlay_opacity": 0,
             "heading": "Care for Your Beauty",
             "heading_size": "hd2",
@@ -399,7 +399,7 @@
         "image_card_gQwfAa": {
           "type": "image_card",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-inverse",
             "image_overlay_opacity": 0,
             "heading": "Show your Sparkle",
             "heading_size": "hd2",
@@ -418,7 +418,7 @@
         "image_card_944yhH": {
           "type": "image_card",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-inverse",
             "image_overlay_opacity": 0,
             "heading": "Care for Your Beauty",
             "heading_size": "hd2",
@@ -445,7 +445,7 @@
         "@media (min-width: 1200px) {.card-media__content-wrapper {max-width: 31rem; }}"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-inverse",
         "subheading": "",
         "heading": "Hot this week",
         "heading_size": "h1",
@@ -470,7 +470,7 @@
         "feature_item_VbCwL3": {
           "type": "feature_item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-inverse",
             "icon": "check",
             "icon_style": "btn--secondary",
             "text": "Free Shipping"
@@ -479,7 +479,7 @@
         "feature_item_NzxQGa": {
           "type": "feature_item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-inverse",
             "icon": "check",
             "icon_style": "btn--secondary",
             "text": "Money Guarantee"
@@ -488,7 +488,7 @@
         "feature_item_yyNV9A": {
           "type": "feature_item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-inverse",
             "icon": "check",
             "icon_style": "btn--secondary",
             "text": "Flexible Payment"
@@ -497,7 +497,7 @@
         "feature_item_gBgLft": {
           "type": "feature_item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-inverse",
             "icon": "check",
             "icon_style": "btn--secondary",
             "text": "Online Support"
@@ -506,7 +506,7 @@
         "feature_item_R8A8eX": {
           "type": "feature_item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-inverse",
             "icon": "check",
             "icon_style": "btn--secondary",
             "text": "Return within 7 days"
@@ -524,7 +524,7 @@
         "@media (max-width: 767px) {.swipe-mobile .feature-item__text {text-wrap: nowrap; }}"
       ],
       "settings": {
-        "color_scheme": "scheme-7",
+        "color_scheme": "scheme-inverse",
         "subheading": "",
         "heading": "",
         "heading_size": "h2",
@@ -569,7 +569,7 @@
         "@media (min-width: 1280px) {.rich-text {--child-margin-top: 4rem; }}"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-inverse",
         "content_alignment": "center",
         "padding_top": 60,
         "padding_bottom": 0,
@@ -639,7 +639,7 @@
       ],
       "settings": {
         "container": "fixed",
-        "color_scheme": "",
+        "color_scheme": "scheme-inverse",
         "enable_sticky_column": true,
         "heading": "",
         "heading_size": "h1",
@@ -699,8 +699,8 @@
         ".image-with-text__content {max-width: 40rem; margin: 0 auto;}"
       ],
       "settings": {
-        "section_color_scheme": "",
-        "color_scheme": "scheme-4",
+        "section_color_scheme": "scheme-inverse",
+        "color_scheme": "scheme-inverse",
         "image_height": "adapt",
         "layout": "text_first",
         "desktop_content_position": "center",
@@ -718,7 +718,7 @@
     "products_showcase_9KVeQe": {
       "type": "products-showcase",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-inverse",
         "heading": "The core products",
         "heading_size": "h2",
         "heading_highlight_style": "none",
@@ -840,7 +840,7 @@
       ],
       "custom_css": [],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-inverse",
         "vertical_alignment": "center",
         "direction": "left",
         "pause_on_hover": true,
@@ -893,7 +893,7 @@
         "tab_PQhFrR"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-inverse",
         "enable_video_autoplay": true,
         "heading": "Customers enjoy their journey everyday",
         "heading_size": "h1",
@@ -982,7 +982,7 @@
       ],
       "custom_css": [],
       "settings": {
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-inverse",
         "heading": "Over 2,000 Happy reviews",
         "heading_size": "h2",
         "heading_highlight_style": "none",
@@ -1053,7 +1053,7 @@
         "image_card_jbgAcV": {
           "type": "image_card",
           "settings": {
-            "color_scheme": "scheme-1",
+            "color_scheme": "scheme-inverse",
             "desktop_image_position": "left",
             "image_width": 50,
             "alignment": "start",
@@ -1085,7 +1085,7 @@
       ],
       "settings": {
         "container": "fixed",
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-inverse",
         "header_layout": "standing-column",
         "heading": "We're answerable!",
         "heading_size": "h2",
@@ -1136,7 +1136,7 @@
         ".rich-text {max-width: 76rem; margin: 0 auto;}"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-inverse",
         "content_alignment": "center",
         "padding_top": 100,
         "padding_bottom": 0,
@@ -1151,7 +1151,7 @@
         "image_card_cGCnqG": {
           "type": "image_card",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-inverse",
             "image_ratio": "adapt",
             "image_overlay_opacity": 0,
             "heading": "News, tips, reviews",
@@ -1175,7 +1175,7 @@
         "image_card_6PehkE": {
           "type": "image_card",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-inverse",
             "image_ratio": "adapt",
             "image_overlay_opacity": 0,
             "heading": "Stores near you",
@@ -1199,7 +1199,7 @@
         "image_card_GKVG6K": {
           "type": "image_card",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-inverse",
             "image_ratio": "adapt",
             "image_overlay_opacity": 0,
             "heading": "On the gram",
@@ -1233,7 +1233,7 @@
       ],
       "settings": {
         "container": "fixed",
-        "color_scheme": "",
+        "color_scheme": "scheme-inverse",
         "enable_sticky_column": false,
         "heading": "",
         "heading_size": "h1",
