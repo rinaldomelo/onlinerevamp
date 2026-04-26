@@ -75,6 +75,14 @@ Open items:
   - Plugin install (M1) is per-machine. If a future contributor joins, they re-run `m1-toolkit-quickstart.md`. Mitigation: documented and linked from `CLAUDE.md` in M1.
   - `.mcp.json` at repo root (added in M7) will *also* affect interactive Claude Code sessions. Document the behavior change in the M7 spec when written.
 
+## 2026-04-26 — M6 — Tier-2 custom skills
+
+- Branch `feature/m6-tier2-skills` (stacked off M5). Files: 6 `.claude/skills/<skill>/SKILL.md` (inspect-theme, edit-liquid-section, edit-config-json, edit-assets, run-validation, manage-feature-branch) + M6 spec.
+- Each SKILL.md mirrors the existing `scope-feature/SKILL.md` format. Documents inputs, process, output, file-glob policy hint (M11 enforces).
+- Decision: skills are documents, not code. M7+ agents will be the consumers that turn description into action. No code in M6.
+- Boundary rule (per ADR-004): if Shopify Toolkit ships a skill that does X, don't write a Tier-2 wrapper that duplicates X. Tier-2 only wraps Toolkit when adding orchestration logic around it (e.g. `run-validation` aggregates Toolkit + theme-check + Lighthouse).
+- Watch-outs: skills cite FoxTheme conventions (rgb-triplet color vars, `1rem = 10px`, breakpoints) — refresh when theme is vendor-updated. Until M11 enforces file-glob policy, the boundary is convention-only.
+
 ## 2026-04-26 — M5 — Production deploy guardrails
 
 - Branch `feature/m5-prod-deploy` (stacked off M4). Files: `ci-staged/.github/workflows/deploy-production.yml`, `runbooks/pre-launch-backup.md`, `runbooks/rollback.md`, M5 spec.

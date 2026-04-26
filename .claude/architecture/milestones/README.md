@@ -12,7 +12,7 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 | M3 | [M3-ci-foundation.md](./M3-ci-foundation.md) | Spec ready (PR open) |
 | M4 | [M4-preview-bot.md](./M4-preview-bot.md) | Spec ready (PR open) |
 | M5 | [M5-prod-deploy.md](./M5-prod-deploy.md) | Spec ready (PR open) |
-| M6 | *Not yet specced* | Stub below |
+| M6 | [M6-tier2-skills.md](./M6-tier2-skills.md) | Spec ready (PR open) |
 | M7 | *Not yet specced* | Stub below |
 | M8 | *Not yet specced* | Stub below |
 | M9 | *Not yet specced* | Stub below |
@@ -25,19 +25,6 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 ## Milestone stubs (just-in-time, expand into full specs when starting)
 
 (M0 and M1 specs are full files; see index above. Stubs below are M2–M12.)
-
-### M6 — Custom skills evolution (Tier 2)
-
-Six new `.claude/skills/` folders, each `SKILL.md`-based and following the existing skill format:
-
-- `inspect-theme` — given a feature description, produce a structured map of relevant sections, snippets, settings.
-- `edit-liquid-section` — read → propose change → write, with theme-check gate.
-- `edit-config-json` — surgical edits to `templates/*.json`, `config/settings_data.json`, `config/settings_schema.json` that preserve unrelated structure.
-- `edit-assets` — CSS/JS edits with idempotency guarantees (don't duplicate rules).
-- `run-validation` — wraps theme-check + Toolkit `validateThemeBundle` + Lighthouse against preview URL.
-- `manage-feature-branch` — creates feature branch, opens PR, posts preview comment, encodes the 3-env workflow.
-
-These skills are usable by humans-in-Claude-Code today *and* invokable by the orchestrator agent in M7. Acceptance: at least one full feature ships using only Tier-2 skills (no manual git/file ops).
 
 ### M7 — Planner+Architect agent (combined, Phase 1)
 
