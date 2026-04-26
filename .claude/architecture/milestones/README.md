@@ -15,7 +15,7 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 | M6 | [M6-tier2-skills.md](./M6-tier2-skills.md) | Spec ready (PR open) |
 | M7 | [M7-planner-architect.md](./M7-planner-architect.md) | Spec ready (PR open) |
 | M8 | [M8-specialist-agents.md](./M8-specialist-agents.md) | Spec ready (PR open) |
-| M9 | *Not yet specced* | Stub below |
+| M9 | [M9-validation-agent.md](./M9-validation-agent.md) | Spec ready (PR open) |
 | M10 | *Not yet specced* | Stub below |
 | M11 | *Not yet specced* | Stub below |
 | M12 | *Not yet specced* | Conditional / deferred |
@@ -25,10 +25,6 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 ## Milestone stubs (just-in-time, expand into full specs when starting)
 
 (M0 and M1 specs are full files; see index above. Stubs below are M2–M12.)
-
-### M9 — Validation agent
-
-Closes the validation loop. Tier-1 = Toolkit `validateThemeBundle` + `validateLiquid` (Pattern B). Tier-2 = `theme-check` (M2 config) + Lighthouse CI on preview URL. Decides `pass | needs_fixes | human_review`. On `needs_fixes`, routes specific issues back to the relevant specialist agent with file:line context. Acceptance: a deliberately broken section is caught, routed to liquid-agent, and fixed in one cycle.
 
 ### M10 — Deployment agent
 

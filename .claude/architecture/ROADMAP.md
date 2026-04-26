@@ -71,7 +71,7 @@ Today, Layers 1 and 2 exist as user-invoked skills and hand-authored docs. Layer
 | **M6** | Custom skills evolution (Tier 2) | New `.claude/skills/`: theme-inspect, liquid-edit, config-edit, assets-edit, validation, manage-feature-branch | M | Code merged, awaiting verification |
 | **M7** | Planner+Architect agent | `orchestrator/src/agents/planner-architect/` via Agent SDK + `.mcp.json` (Pattern B) | L | Scaffold merged, runtime not validated |
 | **M8** | Specialist implementation agents | `liquid-agent`, `config-agent`, `assets-agent` as subagents | L | Scaffold merged, runtime not validated |
-| **M9** | Validation agent | Wraps Toolkit + theme-check + Lighthouse | M | Not started |
+| **M9** | Validation agent | Wraps Toolkit + theme-check + Lighthouse | M | Scaffold merged, runtime not validated |
 | **M10** | Deployment agent | Branch + PR + preview comment + merge gating | M | Not started |
 | **M11** | Governance + observability | `.claude/logs/` JSONL audit, file-glob permissions, rollback drill | M | Not started |
 | **M12** | Phase-2 split + extensions | Planner ≠ Architect; Theme App Extension support | L | Conditional (deferred until criteria met) |

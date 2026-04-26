@@ -75,6 +75,14 @@ Open items:
   - Plugin install (M1) is per-machine. If a future contributor joins, they re-run `m1-toolkit-quickstart.md`. Mitigation: documented and linked from `CLAUDE.md` in M1.
   - `.mcp.json` at repo root (added in M7) will *also* affect interactive Claude Code sessions. Document the behavior change in the M7 spec when written.
 
+## 2026-04-26 — M9 — Validation agent (scaffold)
+
+- Branch `feature/m9-validation-agent`. Files: `orchestrator/src/agents/validation/{prompt.md, harness.ts, schema.ts, index.ts}` + smoke test + M9 spec.
+- Three-tier model: Toolkit (stubbed), theme-check (real shell-out, parses JSON output), Lighthouse (stubbed).
+- Decision rule: `pass` when all tiers green; `needs_fixes` for tier-1/-2 errors; `human_review` for ambiguous cases or when any tier is unavailable. Never silently skip — that's the load-bearing safety property.
+- Routing logic returns empty `[]` today; real routing lands when M8 model calls return file-level errors we can match.
+- Watch-outs: Toolkit availability check happens at runtime (no compile-time guarantee). If Shopify CLI is missing, theme-check falls through to `human_review` rather than reporting fake `pass`.
+
 ## 2026-04-26 — M8 — Specialist agents (liquid / config / assets)
 
 - Branch `feature/m8-specialist-agents` (stacked off M7). Files: 9 in `orchestrator/src/agents/{liquid,config,assets}/{prompt,harness,index}.ts/md` + `orchestrator/src/orchestrator/dispatch.ts` + workflow-runner update + specialists.smoke.test.ts + M8 spec.
