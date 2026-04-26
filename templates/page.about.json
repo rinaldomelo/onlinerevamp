@@ -1,0 +1,637 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "video_hero_riEjtc": {
+      "type": "video-hero",
+      "blocks": {
+        "subheading_EhCzmF": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Glow with confidence"
+          }
+        },
+        "heading_WzGrih": {
+          "type": "heading",
+          "settings": {
+            "heading": "Get the skin you want to feel",
+            "heading_size": "hd1",
+            "heading_highlight_style": "none"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_EhCzmF",
+        "heading_WzGrih"
+      ],
+      "custom_css": [
+        ".rich-text {--subheading-margin-bottom: 2.4rem;}"
+      ],
+      "settings": {
+        "container": "full",
+        "description": "",
+        "video_height": "extra-medium",
+        "overlay_opacity": 30,
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "color_scheme": "scheme-inverse",
+        "content_position": "middle-center",
+        "content_alignment": "center",
+        "video_mobile_height": "auto",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "custom_content_wN3EKJ": {
+      "type": "custom-content",
+      "blocks": {
+        "image_J68fdX": {
+          "type": "image",
+          "settings": {
+            "width": "100%",
+            "alignment": "center",
+            "block_custom_class": ""
+          }
+        },
+        "text_DmBBtg": {
+          "type": "text",
+          "settings": {
+            "heading": "Because you need time for yourself. Blend beauty in you",
+            "heading_size": "h1",
+            "heading_highlight_style": "none",
+            "subheading": "",
+            "description": "<p>Sustainability is the epitome of allure in modern fashion. Our workout wear collection embodies this ethos, seamlessly blending eco-consciousness with undeniable sexiness. From sleek designs to flattering cuts, each piece exudes confidence and style while leaving a minimal environmental footprint. l world where human progress is in harmony with the planet's.</p>",
+            "text_size": "text-lg",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "btn--primary",
+            "content_alignment": "center",
+            "width": "100%",
+            "alignment": "center",
+            "block_custom_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_J68fdX",
+        "text_DmBBtg"
+      ],
+      "custom_css": [
+        "[data-block-type=\"image\"] {max-width: 81.2rem; margin: 0 auto -9%;}",
+        ".rich-text__heading {max-width: 74rem; margin: 0 auto;}",
+        ".custom__block--text {max-width: 81.2rem; margin: 0 auto;}",
+        "@media (max-width: 767px) {[data-block-type=\"image\"] {margin-bottom: -14%; } .rich-text__heading {max-width: 33rem; }}"
+      ],
+      "settings": {
+        "container": "fixed",
+        "color_scheme": "",
+        "enable_sticky_column": false,
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "column_gap": "none",
+        "row_gap": "none",
+        "swipe_on_mobile": false,
+        "columns_mobile": "1",
+        "padding_top": 16,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "collage_tabs_4tqYyi": {
+      "type": "collage-tabs",
+      "blocks": {
+        "tab_TY4A3w": {
+          "type": "tab",
+          "settings": {
+            "content_color_scheme": "",
+            "navigation_title": "2019",
+            "heading": "A fruit enzyme that helps exfoliate and soften skin",
+            "heading_size": "h1",
+            "heading_highlight_style": "none",
+            "subheading": "Safety Ingredients",
+            "description": "<p>Purifying yet non-stripping, this fruit enzyme-packed cleansing oil effortlessly melts away makeup while helping maintain skin′s moisture barrier and pH balance. Designed for even the driest skin, the clean-rinsing formula is ultra-effective when used alone or as the first step in any double cleansing routine.</p>",
+            "text_size": "text-lg",
+            "text_alignment": "center",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "btn--primary"
+          }
+        },
+        "tab_PA6E9a": {
+          "type": "tab",
+          "settings": {
+            "content_color_scheme": "",
+            "navigation_title": "2022",
+            "heading": "A fruit enzyme that helps exfoliate and soften skin",
+            "heading_size": "h1",
+            "heading_highlight_style": "none",
+            "subheading": "Safety Ingredients",
+            "description": "<p>Purifying yet non-stripping, this fruit enzyme-packed cleansing oil effortlessly melts away makeup while helping maintain skin′s moisture barrier and pH balance. Designed for even the driest skin, the clean-rinsing formula is ultra-effective when used alone or as the first step in any double cleansing routine.</p>",
+            "text_size": "text-lg",
+            "text_alignment": "center",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "btn--primary"
+          }
+        },
+        "tab_wUHL7M": {
+          "type": "tab",
+          "settings": {
+            "content_color_scheme": "",
+            "navigation_title": "2023",
+            "heading": "A fruit enzyme that helps exfoliate and soften skin",
+            "heading_size": "h1",
+            "heading_highlight_style": "none",
+            "subheading": "Safety Ingredients",
+            "description": "<p>Purifying yet non-stripping, this fruit enzyme-packed cleansing oil effortlessly melts away makeup while helping maintain skin′s moisture barrier and pH balance. Designed for even the driest skin, the clean-rinsing formula is ultra-effective when used alone or as the first step in any double cleansing routine.</p>",
+            "text_size": "text-lg",
+            "text_alignment": "center",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "tab_TY4A3w",
+        "tab_PA6E9a",
+        "tab_wUHL7M"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "heading_size": "h4",
+        "desktop_navigation_alignment": "center",
+        "desktop_image_position": "right",
+        "desktop_image_width": 50,
+        "image_aspect_ratio": "adapt",
+        "padding_top": 84,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "multicolumn_Mxt4d3": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_ppme79": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "large",
+            "title": "Earth Lover",
+            "heading_size": "h4",
+            "text": "<p>Discover sustainable beauty essentials at Earth Lover beauty store.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_6eYcFq": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "large",
+            "title": "Cruelty Free",
+            "heading_size": "h4",
+            "text": "<p>Find guilt-free beauty essentials at Cruelty Free beauty store.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_6mMR7m": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "large",
+            "title": "100% Organic",
+            "heading_size": "h4",
+            "text": "<p>Discover natural skincare treasures at our 100% Organic beauty haven.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_Lix6qc": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "large",
+            "title": "Paraben Free",
+            "heading_size": "h4",
+            "text": "<p>Unveil clean beauty secrets at our Paraben-Free skincare sanctuary.</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "column_ppme79",
+        "column_6eYcFq",
+        "column_6mMR7m",
+        "column_Lix6qc"
+      ],
+      "custom_css": [],
+      "settings": {
+        "color_scheme": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "column_alignment": "center",
+        "columns_desktop": 4,
+        "column_gap": "large",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "collapsible_tabs_z3JGYY": {
+      "type": "collapsible-tabs",
+      "blocks": {
+        "image_card_NmUgMM": {
+          "type": "image_card",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "desktop_image_position": "left",
+            "image_width": 50,
+            "alignment": "center",
+            "image_ratio": "adapt",
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "description": "",
+            "button_label": "",
+            "button_style": "btn--primary",
+            "content_position": "bottom-center",
+            "content_alignment": "center",
+            "content_spacing": "medium",
+            "card_link": "",
+            "order_first": false
+          }
+        },
+        "heading_MDmMTX": {
+          "type": "heading",
+          "settings": {
+            "heading": "A fruit enzyme that helps exfoliate and soften skin",
+            "heading_size": "h1",
+            "sub_heading": "Safety Ingredients"
+          }
+        },
+        "collapsible_item_VdqfgD": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "How long does shipping take?",
+            "content": "<p>Shipping typically takes 5-7 business days within the United States. For international orders, shipping can take 10-15 business days, depending on the destination and customs processing times. You will receive a tracking number once your order has shipped so you can monitor its progress.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": true
+          }
+        },
+        "collapsible_item_AWXyNC": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Does my piece come in any packaging?",
+            "content": "<p>Yes, all our skincare products come in protective and aesthetically pleasing packaging to ensure they arrive in perfect condition. Each product is securely wrapped, and we use eco-friendly materials whenever possible. Additionally, many of our products come in recyclable containers to support sustainability.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_nbqHwr": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Do you ship internationally?",
+            "content": "<p>Yes, we do ship internationally! We offer worldwide shipping to ensure customers around the globe can enjoy our skincare products. Please note that shipping times and costs may vary depending on the destination country. International customers may also be subject to customs fees or import duties imposed by their country's customs authorities.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        },
+        "collapsible_item_ghjx8T": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "What payment methods do you accept?",
+            "content": "<p>We accept a variety of payment methods to make your shopping experience convenient. These include credit cards (Visa, Mastercard, American Express), PayPal, and, in some regions, alternative payment methods such as Apple Pay or Google Pay. Rest assured, your payment information is secure and protected during the checkout process.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "image_card_NmUgMM",
+        "heading_MDmMTX",
+        "collapsible_item_VdqfgD",
+        "collapsible_item_AWXyNC",
+        "collapsible_item_nbqHwr",
+        "collapsible_item_ghjx8T"
+      ],
+      "custom_css": [
+        ".collapsible-tabs__wrapper {--row-gap-mobile: 4.8rem;}",
+        "@media (min-width: 768px) {collapsible-tabs {max-width: 60rem; padding-inline-start: 6rem; } .card-media {margin-right: -5px; } .collapsible-tabs__content-col {align-items: flex-end; }}"
+      ],
+      "settings": {
+        "container": "fixed",
+        "color_scheme": "",
+        "header_layout": "vertical",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--primary",
+        "column_gap": "none",
+        "row_gap": "large",
+        "item_style": "standard",
+        "item_color_scheme": "",
+        "item_heading_font": "heading",
+        "item_heading_size": "h4",
+        "item_icon_size": "extra-large",
+        "padding_top": 96,
+        "padding_bottom": 0,
+        "show_section_divider": true,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "feature_list_cW3d9c": {
+      "type": "feature-list",
+      "blocks": {
+        "feature_item_VbCwL3": {
+          "type": "feature_item",
+          "settings": {
+            "color_scheme": "",
+            "icon": "check",
+            "icon_style": "btn--secondary",
+            "text": "Free Shipping"
+          }
+        },
+        "feature_item_NzxQGa": {
+          "type": "feature_item",
+          "settings": {
+            "color_scheme": "",
+            "icon": "check",
+            "icon_style": "btn--secondary",
+            "text": "Money Guarantee"
+          }
+        },
+        "feature_item_yyNV9A": {
+          "type": "feature_item",
+          "settings": {
+            "color_scheme": "",
+            "icon": "check",
+            "icon_style": "btn--secondary",
+            "text": "Flexible Payment"
+          }
+        },
+        "feature_item_gBgLft": {
+          "type": "feature_item",
+          "settings": {
+            "color_scheme": "",
+            "icon": "check",
+            "icon_style": "btn--secondary",
+            "text": "Online Support"
+          }
+        },
+        "feature_item_R8A8eX": {
+          "type": "feature_item",
+          "settings": {
+            "color_scheme": "",
+            "icon": "check",
+            "icon_style": "btn--secondary",
+            "text": "Return within 7 days"
+          }
+        }
+      },
+      "block_order": [
+        "feature_item_VbCwL3",
+        "feature_item_NzxQGa",
+        "feature_item_yyNV9A",
+        "feature_item_gBgLft",
+        "feature_item_R8A8eX"
+      ],
+      "settings": {
+        "color_scheme": "scheme-7",
+        "subheading": "",
+        "heading": "Why you will love it",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "description": "",
+        "text_size": "text-base",
+        "item_alignment": "center",
+        "icon_size": "extra-medium",
+        "swipe_on_mobile": true,
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "multicolumn_7rqLzX": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_wUPT4b": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "full",
+            "title": "Tailored Protection",
+            "heading_size": "h4",
+            "text": "<p>In a beautiful matte finish, the Lapwing Gilet is made from recycled materials that take the edge off on early spring and late autumn</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_YyxHCG": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "full",
+            "title": "Considered design",
+            "heading_size": "h4",
+            "text": "<p>In a beautiful matte finish, the Lapwing Gilet is made from recycled materials that take the edge off on early spring and late autumn</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        },
+        "column_Gdt9Gr": {
+          "type": "column",
+          "settings": {
+            "show_image": true,
+            "image_width": "full",
+            "title": "Flattering Cut",
+            "heading_size": "h4",
+            "text": "<p>In a beautiful matte finish, the Lapwing Gilet is made from recycled materials that take the edge off on early spring and late autumn</p>",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_style": "btn--underline",
+            "button_link": "",
+            "mobile_layout": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "column_wUPT4b",
+        "column_YyxHCG",
+        "column_Gdt9Gr"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "text_size": "text-base",
+        "column_alignment": "left",
+        "columns_desktop": 3,
+        "column_gap": "extra-large",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 60,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "custom_content_7PdtA7": {
+      "type": "custom-content",
+      "blocks": {
+        "image_card_JEaNN9": {
+          "type": "image_card",
+          "settings": {
+            "color_scheme": "scheme-inverse",
+            "image_ratio": "adapt",
+            "image_overlay_opacity": 30,
+            "heading": "Meet Our Partners",
+            "heading_size": "h1",
+            "heading_highlight_style": "none",
+            "subheading": "",
+            "description": "",
+            "button_label": "Read more",
+            "button_style": "btn--primary",
+            "content_position": "middle-center",
+            "content_alignment": "center",
+            "content_spacing": "small",
+            "color_scheme_mobile": "scheme-inverse",
+            "show_text_below": false,
+            "content_alignment_mobile": "center",
+            "width": "50%",
+            "alignment": "center",
+            "block_custom_class": ""
+          }
+        },
+        "image_card_phA3qp": {
+          "type": "image_card",
+          "settings": {
+            "color_scheme": "scheme-inverse",
+            "image_ratio": "adapt",
+            "image_overlay_opacity": 30,
+            "heading": "Find Us Everywhere",
+            "heading_size": "h1",
+            "heading_highlight_style": "none",
+            "subheading": "",
+            "description": "",
+            "button_label": "Read more",
+            "button_style": "btn--primary",
+            "content_position": "middle-center",
+            "content_alignment": "center",
+            "content_spacing": "small",
+            "color_scheme_mobile": "scheme-inverse",
+            "show_text_below": false,
+            "content_alignment_mobile": "center",
+            "width": "50%",
+            "alignment": "center",
+            "block_custom_class": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_card_JEaNN9",
+        "image_card_phA3qp"
+      ],
+      "custom_css": [
+        ".card-media {border-radius: 0;}",
+        ".rich-text {--child-margin-top: 2.4rem;}",
+        "@media (max-width: 767px) {.rich-text {--child-margin-top: 2rem; }}"
+      ],
+      "settings": {
+        "container": "full",
+        "color_scheme": "",
+        "enable_sticky_column": false,
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "subheading": "",
+        "description": "",
+        "column_gap": "none",
+        "row_gap": "inherit",
+        "swipe_on_mobile": false,
+        "columns_mobile": "1",
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "video_hero_riEjtc",
+    "custom_content_wN3EKJ",
+    "collage_tabs_4tqYyi",
+    "multicolumn_Mxt4d3",
+    "collapsible_tabs_z3JGYY",
+    "feature_list_cW3d9c",
+    "multicolumn_7rqLzX",
+    "custom_content_7PdtA7"
+  ]
+}
