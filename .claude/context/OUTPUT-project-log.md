@@ -75,6 +75,15 @@ Open items:
   - Plugin install (M1) is per-machine. If a future contributor joins, they re-run `m1-toolkit-quickstart.md`. Mitigation: documented and linked from `CLAUDE.md` in M1.
   - `.mcp.json` at repo root (added in M7) will *also* affect interactive Claude Code sessions. Document the behavior change in the M7 spec when written.
 
+## 2026-04-26 — M5 — Production deploy guardrails
+
+- Branch `feature/m5-prod-deploy` (stacked off M4). Files: `ci-staged/.github/workflows/deploy-production.yml`, `runbooks/pre-launch-backup.md`, `runbooks/rollback.md`, M5 spec.
+- Two-job workflow: `validate` (theme-check + format-check) → `deploy` (Shopify CLI push to prod). `deploy` gated by GitHub `production` Environment (5-min wait timer + required reviewer), `--allow-live` flag explicit.
+- `concurrency: deploy-production`, `cancel-in-progress: false` — prod pushes are serialized, never racing.
+- Rollback strategy: 3 paths documented. Path A (republish emergency theme) = ~30s; Path B (Git revert + re-deploy) = ~10min; Path C (Shopify-native version restore) = fallback.
+- `pre-launch-backup.md` is informational pre-launch; flip to Required when site goes live.
+- Watch-outs: GitHub Environment misconfiguration (forgetting deployment branch rule) is a common gotcha — pre-flight calls it out. Auto-cancel is OFF for prod deploys; rapid merges queue.
+
 ## 2026-04-26 — M4 — Preview-URL bot
 
 - Branch `feature/m4-preview-bot` (stacked off M3). Files: `.claude/architecture/ci-staged/.github/workflows/deploy-dev-preview.yml`, `.claude/architecture/preview-themes.md`, M4 spec.

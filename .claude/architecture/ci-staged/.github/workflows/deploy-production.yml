@@ -1,0 +1,89 @@
+name: Deploy Production Theme
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    # Manual trigger for emergency re-deploys / rollback retries.
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false  # Prod pushes are serialized, never cancelled.
+
+jobs:
+  validate:
+    name: Pre-deploy validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli @shopify/theme
+
+      - name: Install dev dependencies
+        run: npm ci || npm install
+
+      - name: theme-check
+        run: shopify theme check --config .theme-check.yml --output text
+
+      - name: prettier --check
+        run: npm run format:check
+
+  deploy:
+    name: Push to production theme
+    needs: validate
+    runs-on: ubuntu-latest
+    environment:
+      # GitHub Environment with required reviewers + 5-min wait timer
+      # configured in repo settings — see .claude/architecture/ci-secrets.md.
+      name: production
+      url: https://${{ secrets.SHOPIFY_STORE_DOMAIN }}
+    env:
+      SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_STORE_DOMAIN }}
+      SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
+      SHOPIFY_PROD_THEME_ID: ${{ secrets.SHOPIFY_PROD_THEME_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli @shopify/theme
+
+      - name: Push to production
+        run: |
+          shopify theme push \
+            --theme "$SHOPIFY_PROD_THEME_ID" \
+            --path . \
+            --allow-live \
+            --json > prod-push-output.json
+          cat prod-push-output.json
+
+      - name: Record deploy metadata
+        if: always()
+        run: |
+          echo "## Production deploy" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Commit:** \`${{ github.sha }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Theme ID:** \`${{ secrets.SHOPIFY_PROD_THEME_ID }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Triggered by:** ${{ github.actor }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **Timestamp:** $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload CLI output as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: shopify-prod-push-output
+          path: prod-push-output.json
+          retention-days: 90  # Keep prod deploy logs longer than dev.

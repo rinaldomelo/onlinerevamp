@@ -11,7 +11,7 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 | M2 | [M2-local-validation.md](./M2-local-validation.md) | Spec ready (PR open) |
 | M3 | [M3-ci-foundation.md](./M3-ci-foundation.md) | Spec ready (PR open) |
 | M4 | [M4-preview-bot.md](./M4-preview-bot.md) | Spec ready (PR open) |
-| M5 | *Not yet specced* | Stub below |
+| M5 | [M5-prod-deploy.md](./M5-prod-deploy.md) | Spec ready (PR open) |
 | M6 | *Not yet specced* | Stub below |
 | M7 | *Not yet specced* | Stub below |
 | M8 | *Not yet specced* | Stub below |
@@ -25,10 +25,6 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 ## Milestone stubs (just-in-time, expand into full specs when starting)
 
 (M0 and M1 specs are full files; see index above. Stubs below are M2–M12.)
-
-### M5 — Production deploy guardrails
-
-`.github/workflows/deploy-production.yml` triggers on push to `main`, runs theme-check + smoke build, then pushes to the production theme via Shopify CLI. GitHub Environment `production` has required reviewers and a 5-minute "wait timer" so a bad merge can be aborted before it ships. `runbooks/pre-launch-backup.md` codifies the "duplicate live theme as `Emergency YYYY-MM-DD`" step that fires before merge once the site is live. Acceptance: a green main deploy reaches production safely, and a deliberate rollback works in under 5 minutes.
 
 ### M6 — Custom skills evolution (Tier 2)
 
