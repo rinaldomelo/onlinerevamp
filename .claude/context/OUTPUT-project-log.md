@@ -9,6 +9,27 @@ This is the project's persistent memory. AI reads it at the start of every sessi
 
 ---
 
+## 2026-04-27 — M13 — Phase-2 split (Planner ≠ Architect) + L1–L6 feature levels
+
+- **Branch `feature/m13-planner-architect-split`** (stacked off `feature/m11-governance`). Pulled forward from M12 by user direction — not by ADR-006's prompt-bloat / multi-store / observation-pattern triggers. Motivation is **role-language separation**: planner speaks NL with PM-technical fluency (no file paths or class names); architect speaks senior-developer (concrete paths, Liquid objects, CSS classes). See [ADR-010](../architecture/adr/ADR-010-planner-architect-split.md). ADR-006 marked Superseded.
+- **New bridge type `TriagedFeatureRequest`** in `orchestrator/src/types.ts`. Carries either `{ status: "ready", level, estimatedEffort, acceptanceCriteria, references }` or `{ status: "held", heldReason, missingInputs }`. `RunFeatureResult` is a discriminated union — held requests short-circuit before the architect.
+- **L1–L6 levels defined by file-glob signatures** (not prose) in `orchestrator/src/agents/level.ts`. L1 = JSON/customizer, L2 = liquid edit, L3 = new section (`section-*` prefix), L4 = base CSS/JS additions, L5 = new templates/layout, L6 = held/out-of-scope. Both prompts inject the level table at load time via `{{LEVEL_TABLE}}` substitution — single source of truth, no drift.
+- **Deterministic `estimateTeamDays(level, factors)`** in `orchestrator/src/agents/planner/estimate.ts`. Multipliers compose multiplicatively, **uncapped** by design (variantCount>3 ×1.25, copyDensity=high ×1.15, novelComponent ×1.4, responsive ×1.1). Model proposes factors, harness produces the number. Reproducible across runs; recalibration is a single-file edit.
+- **`permissions.yml` agent count: 6 → 7** (added `planner` + `architect` as separate read-only entries; both retain broad theme read access). M11's acceptance line patched accordingly.
+- **Architect schema rejects held inputs via `.refine()`** — defense in depth on top of the workflow runner short-circuit. Smoke test asserts the rejection message.
+- **Scaffold-only.** Both `model.ts` files throw "not yet implemented at runtime"; M14 wires the Anthropic Agent SDK + multimodal image content blocks for image references in `.claude/features/<id>/reference/`.
+- **Decisions / alternatives considered:**
+  - **Path B (new M13 milestone) over Path A (rebase M7).** Atomic supersede preserves honest history (ADR-006 was the right Phase-1 call; ADR-010 captures the deliberate move). Avoids cascading rebase across 5 stacked branches.
+  - **Deterministic estimator over model-judgment.** "Auto-calculated based on team-equivalent effort" implies determinism. Heuristic table is recalibratable; model judgment is not reproducible.
+  - **Two agents, not three.** Considered Planner → Triage → Architect; rejected as adding hand-off without proportional benefit. Triage fits inside the planner.
+  - **Architect handles all ready levels (including L1).** L1 trivially passes through — no fast-path for customizer-only changes — to keep one routing rule and consistent observation attribution.
+- **Risks / watch-outs:**
+  - **Prompt template drift** between planner and architect — mitigated by shared `level.ts` + `{{LEVEL_TABLE}}` substitution. If a future edit forgets to call `renderLevelTableMarkdown()`, the model gets a literal placeholder.
+  - **Estimator calibration** is a guess until 5–10 real runs accumulate. Risk: estimates feel off. Mitigation: deterministic = recalibration is one constant edit.
+  - **Architect's level-signature respect is prompt-enforced, not runtime-enforced.** A misbehaving architect could emit out-of-level write paths; M11 file-glob policy still catches these at write time. Promoting to runtime enforcement is M13.1.
+  - **Held-state UX is synchronous** — caller blocks until human provides missingInputs. Deferred queue persistence to a later milestone.
+- **Open follow-ups (not blocking M13):** held-state persistence to `.claude/features/<id>/HELD.md`; level→glob enforcement in `policy.ts` (M13.1); auto-re-triage on architect escalation; multimodal image content block transmission (M14); `/scope-feature` and `/plan-feature-implemenation` adopting L1–L6.
+
 ## 2026-04-25 — Onboarded theme: Sleek v2.2.0 by FoxEcom
 
 Ran `/onboard-theme` and generated `OUTPUT-initial-theme-analysis.md`. Key takeaways for future feature work:

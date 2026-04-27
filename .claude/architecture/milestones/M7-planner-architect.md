@@ -1,5 +1,7 @@
 # M7 — Planner+Architect Agent (Combined, Phase 1)
 
+> **Superseded by [M13](./M13-planner-architect-split.md) on 2026-04-27.** The combined `planner-architect` agent that this milestone shipped was split into separate `planner` and `architect` agents in M13, earlier than the M12 trigger criteria predicted. ADR-006 → ADR-010. The body of this spec describes the Phase-1 reality that was true between M7 and M13 — left intact for honest history.
+
 **Status:** Code merged, awaiting verification (PR open). **Scaffold only — not validated at runtime.**
 **Effort:** L.
 **Owner:** Rinaldo.

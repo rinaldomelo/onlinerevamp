@@ -2,7 +2,8 @@
 // adapted to use Zod for runtime validation (the Agent SDK accepts Zod schemas
 // for tool inputs/outputs).
 //
-// Status (M7): structural definitions, not yet exercised at runtime.
+// Status (M13): Phase-2 split landed. `TriagedFeatureRequest` is the bridge
+// type between planner and architect; see ADR-010.
 
 import { z } from "zod";
 
@@ -23,6 +24,56 @@ export const FeatureRequestSchema = z.object({
 });
 export type FeatureRequest = z.infer<typeof FeatureRequestSchema>;
 
+// ─── Feature level (M13) ─────────────────────────────────────────────────────
+
+export const FeatureLevel = z.enum(["L1", "L2", "L3", "L4", "L5", "L6"]);
+export type FeatureLevel = z.infer<typeof FeatureLevel>;
+
+// ─── References (planner intake — M13) ───────────────────────────────────────
+
+export const FeatureReferenceSchema = z.object({
+  kind: z.enum(["image", "html", "url", "text", "design"]),
+  path: z.string(),
+  mime: z.string().optional(),
+  note: z.string().optional(),
+});
+export type FeatureReference = z.infer<typeof FeatureReferenceSchema>;
+
+// ─── Estimated effort (M13) ──────────────────────────────────────────────────
+
+export const EstimatedEffortSchema = z.object({
+  teamDays: z.number().nonnegative(),
+  confidence: z.enum(["low", "medium", "high"]),
+  factors: z.array(z.string()),
+});
+export type EstimatedEffort = z.infer<typeof EstimatedEffortSchema>;
+
+// ─── TriagedFeatureRequest (planner → architect bridge — M13) ────────────────
+//
+// NOTE: This is a flat schema with optional fields, NOT a Zod discriminated
+// union. The optional fields (`level`, `estimatedEffort`, `heldReason`,
+// `missingInputs`) are gated by `status` semantically — the planner emits
+// `level` + `estimatedEffort` iff `status === "ready"`, and `heldReason` +
+// `missingInputs` iff `status === "held"`. The workflow runner enforces this
+// at the boundary (see workflow-runner.ts's "schema invariant violated" guard).
+//
+// Do NOT refactor this into z.discriminatedUnion("status", [...]) without
+// also updating the architect's `ArchitectInputSchema.refine()` and every
+// caller that destructures from the parse result — TS narrowing changes
+// shape and the architect's contract breaks silently.
+
+export const TriagedFeatureRequestSchema = z.object({
+  featureRequest: FeatureRequestSchema,
+  status: z.enum(["ready", "held"]),
+  level: FeatureLevel.optional(),
+  estimatedEffort: EstimatedEffortSchema.optional(),
+  acceptanceCriteria: z.array(z.string()).optional(),
+  references: z.array(FeatureReferenceSchema).optional(),
+  heldReason: z.string().optional(),
+  missingInputs: z.array(z.string()).optional(),
+});
+export type TriagedFeatureRequest = z.infer<typeof TriagedFeatureRequestSchema>;
+
 // ─── Plan + PlanTask ─────────────────────────────────────────────────────────
 
 export const PlanTaskKind = z.enum([
@@ -37,6 +88,7 @@ export const PlanTaskKind = z.enum([
 export type PlanTaskKind = z.infer<typeof PlanTaskKind>;
 
 export const TargetAgent = z.enum([
+  "planner",
   "architect",
   "liquid",
   "config",

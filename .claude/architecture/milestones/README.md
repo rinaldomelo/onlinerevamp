@@ -18,7 +18,8 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 | M9 | [M9-validation-agent.md](./M9-validation-agent.md) | Spec ready (PR open) |
 | M10 | [M10-deployment-agent.md](./M10-deployment-agent.md) | Spec ready (PR open) |
 | M11 | [M11-governance.md](./M11-governance.md) | Spec ready (PR open) |
-| M12 | *Not yet specced* | Conditional / deferred |
+| M12 | *Not yet specced* | Conditional / deferred (Theme App Extension only) |
+| M13 | [M13-planner-architect-split.md](./M13-planner-architect-split.md) | Spec ready (PR open) |
 
 ---
 
@@ -26,16 +27,15 @@ This folder holds the per-milestone specs for the agentic system roadmap. The ca
 
 (M0 and M1 specs are full files; see index above. Stubs below are M2–M12.)
 
-### M12 — Phase-2 split + theme app extension support
+### M12 — Theme App Extension support
 
-**Conditional milestone.** Triggers when at least 2 of:
+**Conditional milestone, scope-narrowed 2026-04-27.** Originally bundled the Phase-2 Planner/Architect split, which was pulled forward into M13. M12 is now solely about Theme App Extensions.
 
-- planner-architect prompt is bloating past ~6k tokens or showing role confusion,
-- two or more themes/stores share the orchestrator with conflicting implementations,
-- 50+ plans logged with patterns that would benefit from splitting roles,
-- a real feature genuinely needs Theme App Extension primitives.
+Triggers when:
 
-Splits Planner ≠ Architect. Adds a parallel `extensions/` repo + agent flow for app-block development. ADR-009 drafted here.
+- A real feature genuinely needs Theme App Extension primitives (cross-store dynamic widgets, app-data-driven UI).
+
+Adds a parallel `extensions/` repo + agent flow for app-block development. ADR-009 drafted here when M12 enters scope.
 
 ---
 

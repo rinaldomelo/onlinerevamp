@@ -3,8 +3,8 @@
 > Canonical roadmap for evolving this `.claude/`-based feature workflow into the agentic orchestration system described in the reference doc at `~/Downloads/shopify-agentic-theme-system_1.md` (vendoring into `.claude/architecture/source/` is a follow-up — see M0 spec).
 >
 > **Owner:** Rinaldo (`rinaldo@evosem.com`).
-> **Status:** M0 in progress. M1+ scheduled but not started.
-> **Last updated:** 2026-04-25.
+> **Status:** M0–M11 code merged, awaiting verification. M13 (Phase-2 split) added 2026-04-27. M12 narrowed to Theme App Extension support only.
+> **Last updated:** 2026-04-27.
 
 ---
 
@@ -74,7 +74,8 @@ Today, Layers 1 and 2 exist as user-invoked skills and hand-authored docs. Layer
 | **M9** | Validation agent | Wraps Toolkit + theme-check + Lighthouse | M | Scaffold merged, runtime not validated |
 | **M10** | Deployment agent | Branch + PR + preview comment + merge gating | M | Scaffold merged, runtime not validated |
 | **M11** | Governance + observability | `.claude/logs/` JSONL audit, file-glob permissions, rollback drill | M | Scaffold merged, runtime not validated |
-| **M12** | Phase-2 split + extensions | Planner ≠ Architect; Theme App Extension support | L | Conditional (deferred until criteria met) |
+| **M12** | Theme App Extension support | Parallel `extensions/` flow for app-block development; ADR-009 | L | Conditional (deferred until criteria met) |
+| **M13** | Phase-2 split: Planner ≠ Architect + level triage | Two agents, `TriagedFeatureRequest` bridge, L1–L6 levels, deterministic estimator, held-state | L | Spec ready (PR open) |
 
 **Effort key:** XS = hours, S = 1 day, M = 2-4 days, L = 1+ week. Solo-dev calendar.
 
@@ -93,10 +94,11 @@ ADRs follow [Nygard format](https://cognitect.com/blog/2011/11/15/documenting-ar
 | [ADR-003](./adr/ADR-003-shopify-cli-deploy.md) | Use Shopify CLI push (not GitHub integration) for deploys | Accepted | M0 |
 | [ADR-004](./adr/ADR-004-skills-tier-split.md) | Two-tier skills strategy: Toolkit (Tier 1) + custom Tier 2 | Accepted | M0 |
 | [ADR-005](./adr/ADR-005-orchestrator-stack.md) | Orchestrator stack: TypeScript + Anthropic Agent SDK | Accepted | M0 |
-| [ADR-006](./adr/ADR-006-combined-planner-architect.md) | Combined Planner+Architect for Phase 1 (criteria for splitting) | Accepted | M7 |
+| [ADR-006](./adr/ADR-006-combined-planner-architect.md) | Combined Planner+Architect for Phase 1 (criteria for splitting) | Superseded by ADR-010 | M7 |
 | [ADR-007](./adr/ADR-007-permissions-policy.md) | Permissions / file-glob policy per agent | Accepted | M11 |
 | [ADR-008](./adr/ADR-008-observability-logs.md) | Observability logs: JSONL append-only at `.claude/logs/` | Accepted | M11 |
 | ADR-009 | Theme App Extension support — boundary between theme repo and app repo | TBD | M12 |
+| [ADR-010](./adr/ADR-010-planner-architect-split.md) | Phase-2 split: Planner ≠ Architect + L1–L6 feature levels + held-state | Accepted | M13 |
 
 ---
 
@@ -152,6 +154,7 @@ M11 → .claude/architecture/permissions.yml, runbooks/
 | Toolkit pattern priority | Pattern A first in M1 (plugin install). Pattern B (`.mcp.json` for autonomous orchestrator) deferred to M7. |
 | Migration platform (source doc §15.5) | Out of scope for this roadmap. Migration gets its own roadmap when prioritized. |
 | Orchestrator language | TypeScript (see ADR-005). Reversible if Python ergonomics win at M7. |
+| Phase-2 split timing | Pulled forward from M12 to M13 (2026-04-27) by user direction. Motivated by role-language separation, not by ADR-006's prompt-bloat / multi-store / observation-pattern triggers. See ADR-010. |
 
 ---
 
@@ -165,16 +168,15 @@ M11 → .claude/architecture/permissions.yml, runbooks/
 
 ---
 
-## Trigger criteria for M12 (split + extensions)
+## Trigger criteria for M12 (Theme App Extension support)
 
-M12 fires when **at least 2 of the following** are true:
+> **Scope-narrowed 2026-04-27.** The Phase-2 Planner/Architect split that originally lived under M12 was pulled forward into M13 by user direction. M12 is now solely about Theme App Extension support.
 
-- Planner+Architect prompt exceeds ~6k tokens or shows confused responsibility (signals a split is overdue).
-- Two or more themes/stores share the orchestrator and start producing conflicting implementations.
-- > ~50 plans logged to `.claude/logs/`, with patterns suggesting persistent coordination friction.
+M12 fires when:
+
 - A specific feature genuinely needs Theme App Extension primitives (cross-store dynamic widgets, app-data-driven UI).
 
-Until then, M12 stays parked.
+Until then, M12 stays parked. ADR-009 will be drafted when M12 enters scope.
 
 ---
 

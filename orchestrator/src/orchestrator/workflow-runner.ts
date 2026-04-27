@@ -1,19 +1,39 @@
-// Workflow runner — drives the planner-architect, then dispatches plan tasks
-// to specialist agents (M8+), validation (M9), deployment (M10).
+// Workflow runner — drives planner → architect → specialist dispatch (M13).
 //
-// Status (M7): scaffold with planner-architect wired; specialist dispatch is
-// a stub that will be filled by M8.
+// Two upstream stages:
+//   1. Planner triages the FeatureRequest into a TriagedFeatureRequest.
+//      If `held`, the runner returns immediately — no architect, no dispatch.
+//   2. Architect maps the ready triaged request to Plan + ArchitectDesign.
+// Then specialist dispatch runs each PlanTask (existing M8 behavior).
 
-import type { FeatureRequest, Plan, ArchitectDesign, AgentObservation } from "../types.js";
-import { runPlannerArchitect } from "../agents/planner-architect/index.js";
+import type {
+  FeatureRequest,
+  Plan,
+  ArchitectDesign,
+  AgentObservation,
+  FeatureLevel,
+  EstimatedEffort,
+} from "../types.js";
+import { runPlanner } from "../agents/planner/index.js";
+import { runArchitect } from "../agents/architect/index.js";
 import { observationBus } from "./message-bus.js";
 import { dispatchTask } from "./dispatch.js";
 
-export interface RunFeatureResult {
-  plan: Plan;
-  design: ArchitectDesign;
-  observations: AgentObservation[];
-}
+export type RunFeatureResult =
+  | {
+      status: "held";
+      reason: string;
+      missingInputs: string[];
+      observations: AgentObservation[];
+    }
+  | {
+      status: "complete";
+      level: FeatureLevel;
+      estimatedEffort: EstimatedEffort;
+      plan: Plan;
+      design: ArchitectDesign;
+      observations: AgentObservation[];
+    };
 
 export async function runFeature(
   featureRequest: FeatureRequest,
@@ -24,19 +44,40 @@ export async function runFeature(
   });
 
   try {
-    // M7 — planner-architect produces both Plan and ArchitectDesign.
-    const { plan, design } = await runPlannerArchitect(featureRequest);
+    // Stage 1 — Planner
+    const triaged = await runPlanner(featureRequest);
+    if (triaged.status === "held") {
+      return {
+        status: "held",
+        reason: triaged.heldReason ?? "(planner did not provide a reason)",
+        missingInputs: triaged.missingInputs ?? [],
+        observations,
+      };
+    }
 
-    // M8 — dispatch each task to its specialist agent.
+    if (!triaged.level || !triaged.estimatedEffort) {
+      throw new Error(
+        "Planner returned status=ready but missing level or estimatedEffort — schema invariant violated",
+      );
+    }
+
+    // Stage 2 — Architect
+    const { plan, design } = await runArchitect(triaged);
+
+    // Stage 3 — Specialist dispatch (existing M8 behavior)
     for (const task of plan.tasks) {
       const obs = await dispatchTask(task);
       await observationBus.publish(obs);
     }
 
-    // M9 — aggregate validation. Stubbed.
-    // M10 — deployment. Stubbed.
-
-    return { plan, design, observations };
+    return {
+      status: "complete",
+      level: triaged.level,
+      estimatedEffort: triaged.estimatedEffort,
+      plan,
+      design,
+      observations,
+    };
   } finally {
     unsubscribe();
   }

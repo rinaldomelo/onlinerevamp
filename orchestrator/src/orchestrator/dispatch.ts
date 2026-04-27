@@ -1,8 +1,9 @@
 // Specialist dispatch — routes a PlanTask to the right agent based on
 // `task.targetAgent`. Used by the workflow runner.
 //
-// Status (M8): wires liquid / config / assets. Validation (M9) and
-// deployment (M10) get added in their own milestones.
+// Status (M13): planner + architect run upstream of dispatch (workflow-runner
+// drives them directly). Validation (M9) and deployment (M10) wiring lands
+// post-M11 governance per their milestone specs.
 
 import type { PlanTask, AgentObservation } from "../types.js";
 import { runLiquidTask } from "../agents/liquid/index.js";
@@ -21,9 +22,10 @@ export async function dispatchTask(task: PlanTask): Promise<AgentObservation> {
       return notImplemented(task, "validation", "M9");
     case "deployment":
       return notImplemented(task, "deployment", "M10");
+    case "planner":
     case "architect":
       throw new Error(
-        `dispatchTask received targetAgent "architect"; planner-architect runs upstream`,
+        `dispatchTask received targetAgent "${task.targetAgent}"; runs upstream of dispatch`,
       );
     default: {
       const _exhaustive: never = task.targetAgent;

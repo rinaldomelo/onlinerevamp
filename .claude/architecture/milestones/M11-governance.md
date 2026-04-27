@@ -72,7 +72,7 @@ Out:
 
 ## Acceptance criteria
 
-- [ ] `permissions.yml` covers all 6 agents (planner-architect, liquid, config, assets, validation, deployment).
+- [ ] `permissions.yml` covers all 7 agents (planner, architect, liquid, config, assets, validation, deployment). _(Was 6 — `planner-architect` split into `planner` + `architect` in M13.)_
 - [ ] `global_forbidden` blocks `.env`, `.git/`, `node_modules/`, `.claude/logs/`.
 - [ ] `policy.ts::ensureCanWrite` throws `PolicyViolationError` on mismatch.
 - [ ] `logger.ts::logRecord` appends one JSONL line per call.

@@ -12,7 +12,20 @@
 # Globs follow simple-git's interpretation (extended glob, anchored to repo root).
 
 agents:
-  planner-architect:
+  planner:
+    write_globs: []  # Read-only. TriagedFeatureRequest is returned to caller, not written.
+    read_globs:
+      - 'sections/**/*'
+      - 'snippets/**/*'
+      - 'templates/**/*'
+      - 'config/**/*'
+      - 'locales/**/*'
+      - 'layout/**/*'
+      - 'assets/**/*'
+      - '.claude/features/**/*'
+      - '.claude/context/**/*'
+
+  architect:
     write_globs: []  # Read-only. Plans + Designs are returned to callers, not written.
     read_globs:
       - 'sections/**/*'

@@ -1,10 +1,11 @@
 # ADR-006 — Combined Planner+Architect for Phase 1
 
-- **Status:** Accepted
+- **Status:** Superseded by [ADR-010](./ADR-010-planner-architect-split.md) on 2026-04-27
 - **Date:** 2026-04-26
 - **Deciders:** Rinaldo (solo dev)
 - **Implements:** Milestone M7
-- **Related:** ADR-005 (orchestrator stack), ADR-004 (skills tier split)
+- **Superseded by:** Milestone M13
+- **Related:** ADR-005 (orchestrator stack), ADR-004 (skills tier split), ADR-010 (Phase-2 split)
 
 ---
 
@@ -86,3 +87,9 @@ When that bar is met, the split is straightforward: extract the architect role i
 4. Workflow runner gets a new node between planner and specialists.
 5. Update tests + observation routing.
 6. Mark this ADR `Superseded` and link to the new ADR-XXX.
+
+## Superseded (2026-04-27)
+
+The Phase-2 split shipped earlier than this ADR's M12 trigger criteria predicted — by user direction, not by the documented triggers. The user pulled the split forward as a deliberate architecture upgrade in M13, motivated by the **role-language separation** itself rather than by prompt-bloat or multi-store conflict. The `TriagedFeatureRequest` bridge type, the L1–L6 feature-level system, the deterministic `estimateTeamDays` helper, and the held-state contract are all M13 additions that this ADR did not anticipate.
+
+The Phase-1 reasoning recorded above remains valid for the period it covered (M7–M11). See [ADR-010](./ADR-010-planner-architect-split.md) for the new design and [`milestones/M13-planner-architect-split.md`](../milestones/M13-planner-architect-split.md) for the implementation.
