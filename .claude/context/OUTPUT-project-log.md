@@ -9,6 +9,60 @@ This is the project's persistent memory. AI reads it at the start of every sessi
 
 ---
 
+## 2026-04-28 — Layer 1 (Intent) build-out — spec hierarchy shipped (Phases 0–5)
+
+Built the missing Layer 1 of the orchestration north star end-to-end. The system now generates, browses, and consumes a project-wide spec hierarchy that bridges the Shopify codebase and the Figma design source.
+
+### What shipped
+
+- **7 new skills** under `.claude/skills/`:
+  - `onboard-figma` — design-side counterpart to `onboard-theme`. Walks the Figma file via Figma MCP, skips Archive, applies a Ready-for-Dev filter (with archive-fallback), produces `.claude/context/OUTPUT-initial-figma-analysis.md` + seeds `.claude/specs/_figma-index.json`.
+  - `init-specs` — bootstraps `.claude/specs/` tree (gates on both onboard outputs).
+  - `spec-theme` — derives `.claude/specs/theme.md` from the theme analysis + filesystem counts (thin pointer, not a duplicate).
+  - `spec-project` — interactive 3-round Q&A → `.claude/specs/project.md`.
+  - `spec-page` — reads `templates/<slug>.json` `order[]`, links Figma viewport frames, scaffolds `pages/<slug>.md`.
+  - `spec-section` — parses `sections/<slug>.liquid` `{% schema %}`, produces `sections/<slug>.md` with **inline `### Block:` H3s** (no `/blocks/` folder in this theme).
+  - `refresh-spec-viewer` — server-side renders all spec markdown to a static HTML 3-pane viewer at `.claude/specs/_viewer/` (gitignored). Vendored Python script at `.claude/skills/refresh-spec-viewer/render.py` using `python-markdown` + `PyYAML`.
+
+- **Spec artifacts produced for the Rhythm Rocks project:**
+  - `.claude/specs/project.md` — Rhythm Rocks (4 in-scope, 5 out-of-scope, 3-environment branching by role: customers/QA+PM/devs+agents)
+  - `.claude/specs/theme.md` — Sleek v2.2.0 (10 critical gotchas, full inventory snapshot)
+  - `.claude/specs/pages/index.md` — Home (18-section stack, 12 sections still missing specs)
+  - `.claude/specs/sections/{slideshow,product-tabs,collection-list,multicolumn}.md`
+  - `.claude/specs/_figma-index.json` — 15 nodes (12 page-kind + 3 component-kind), 2 entries linked to `pages/index`
+
+- **Existing skills wired** (Phase 5):
+  - `scope-feature/SKILL.md` Inputs section now reads project + theme + matched page/section specs + figma analysis.
+  - `plan-feature-implemenation/SKILL.md` same wiring.
+  - `start-feature/skill.md` adds a new Step 4 to auto-link relevant specs into freshly-created feature folders.
+  - `.claude/CLAUDE.md` got a "Specs — `.claude/specs/`" section explaining the hierarchy + onboard chain.
+
+- **Roadmap updated:** ROADMAP.md adds an L1+ row (this work) and an M14 stub. M14 spec at `.claude/architecture/milestones/M14-specs-as-planner-input.md` describes wiring specs into the autonomous orchestrator's Planner once a real feature has run end-to-end.
+
+### Decisions made
+
+- **One Shopify template = one page spec.** Both viewports' Figma references go in the same file's `figma[]` array (with `viewport: desktop|mobile`). Viewport-level differences live in the body's "Responsive notes" section. This aligns specs with the implementation unit (a single rendering template).
+- **Block specs are nested inline** as `### Block: <name>` H3 sections under `## Blocks` in section spec bodies. Driven by the theme having no `/blocks/` folder (blocks live in `{% schema %}` inline).
+- **Bootstrap-once + manual curation.** A future `/validate-specs` skill (out of scope) will detect drift between specs and code. For now `last_curated` dates make staleness visible.
+- **Static HTML viewer over Polaris web app or Figma plugin** — shipped value first; an interactive UI can layer on top later if useful. Viewer renders server-side (Python markdown lib) so it opens via `file://` with no dev server.
+- **Dev-Mode "Ready for Dev" detection used a fallback.** The Figma Plugin API didn't expose `devStatus` on this file (no SECTION nodes; PAGE nodes lack the property; FRAME nodes throw "not yet supported"). Recorded as `dev_ready_source: "fallback-non-archive"` on every index entry so the limitation is transparent. Re-runs will pick up native Dev Mode flags if/when the file restructures.
+- **Inline copy stays out of specs.** Locale JSON files own all text. Section specs reference `t:` keys by name only.
+- **"Each viewport is a page" in the index, but one spec per template.** Resolved a tension in the user's earlier instruction — the figma-index records 12 page-kind entries (desktop + mobile + filter states + mega-menu states); the page spec FILES align with implementation reality (one file per Shopify template).
+- **Inventory snapshot at curation time, not at runtime.** `theme.md` carries `inventory:` counts in frontmatter, stamped with `last_curated`. The filesystem is checked at curation; drift over time is the cost of snapshotting. Trade-off chosen because runtime counts make for noisy diffs.
+
+### Risks / open questions
+
+- **Spec/code drift.** No automated drift detection yet. Sections' `.liquid` schemas can be edited independently of their spec files. Mitigation: future `/validate-specs` skill (deferred).
+- **Thumbnails are not yet cached locally.** The `thumbnail` field in `_figma-index.json` is `null` on every entry. Phase 0 deferred binary-write via the MCP since `get_screenshot` returns inline image data and the path to write PNGs from MCP responses isn't trivial. The viewer renders a "thumbnail not cached" placeholder. Resolve when re-running the viewer needs visual fidelity (use_figma's `node.screenshot()` returns inline images that could be written via a renderer-side helper).
+- **Mega-menu states classified as page-kind in the index but conceptually section states.** All 5 ship inside `sections/header.liquid`. The `header` section spec is not yet written — `linked_specs[]` will tie all 5 to it once `/spec-section header` runs.
+- **12 sections from the Home page stack still need specs.** `highlight-text-with-image`, `products-bundle`, `card-images`, `feature-list`, `rich-text`, `custom-content`, `image-with-text`, `products-showcase`, `scrolling-promotion`, `featured-products-tab`, `testimonials`, `collapsible-tabs`. Tracked in the in-session task list as a roadmap item.
+- **PDP, Collection, header section group not yet specced.** Next priorities for spec coverage. The PDP focus is `98:11` (Add to Bag); `120:40` (Select this Ring) is excluded. Mobile collection canonical is `98:2066`; `98:2619` excluded.
+- **M14 trigger is empirical, not calendar-based.** Don't wire specs into the autonomous Planner until a real feature has run end-to-end through `/scope-feature` → `/plan-feature-implemenation` → ship and exposed a measurable benefit (e.g. "the planner missed a critical gotcha because it didn't read theme.md"). See M14 stub for criteria.
+
+### Files touched (high-level)
+
+Added: 7 new skill folders under `.claude/skills/`, `.claude/specs/` tree (project, theme, pages/index, 4 sections, templates, figma index, viewer), `.claude/context/OUTPUT-initial-figma-analysis.md`, `.claude/architecture/milestones/M14-specs-as-planner-input.md`. Modified: `.gitignore` (viewer + thumbnails), `.claude/CLAUDE.md`, `.claude/architecture/ROADMAP.md`, `scope-feature/SKILL.md`, `plan-feature-implemenation/SKILL.md`, `start-feature/skill.md`. Untouched: M13 orchestrator code, `.mcp.json`, `OUTPUT-initial-theme-analysis.md`.
+
 ## 2026-04-27 — M13 — Phase-2 split (Planner ≠ Architect) + L1–L6 feature levels
 
 - **Branch `feature/m13-planner-architect-split`** (stacked off `feature/m11-governance`). Pulled forward from M12 by user direction — not by ADR-006's prompt-bloat / multi-store / observation-pattern triggers. Motivation is **role-language separation**: planner speaks NL with PM-technical fluency (no file paths or class names); architect speaks senior-developer (concrete paths, Liquid objects, CSS classes). See [ADR-010](../architecture/adr/ADR-010-planner-architect-split.md). ADR-006 marked Superseded.

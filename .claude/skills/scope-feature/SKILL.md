@@ -24,9 +24,16 @@ Read and understand:
 
 1. **Feature spec** — `.claude/features/[feature-name]/feature.md` — the user's rough brief
 2. **Reference material** — `.claude/features/[feature-name]/reference/` — any designs, screenshots, notes, or images the user uploaded. If images exist, analyze them carefully — they often contain more information than the written brief.
-3. **Theme analysis** — `.claude/context/OUTPUT-initial-theme-analysis.md` — to understand what already exists in the theme that's relevant
-4. **Project log** — `.claude/context/OUTPUT-project-log.md` — for decisions that might affect this feature
-5. **Other feature summaries** — if relevant, scan the summary section at the top of other `OUTPUT-implementation-plan.md` files to check for dependencies or overlap
+3. **Project spec** — `.claude/specs/project.md` — store, scope, environments, decisions made, open questions/priorities. Establishes what's in/out of scope at the project level.
+4. **Theme spec** — `.claude/specs/theme.md` — base theme, inventory snapshot, critical gotchas. Pointer to the full analysis.
+5. **Theme analysis** — `.claude/context/OUTPUT-initial-theme-analysis.md` — full conventions (CSS, JS, Liquid, schema). Source of truth for "how things are built here".
+6. **Figma analysis** — `.claude/context/OUTPUT-initial-figma-analysis.md` — design source of truth, dev-ready pages, design tokens, inferred Shopify mappings.
+7. **Page specs that match the feature target** — `.claude/specs/pages/<slug>.md` — read these when the feature touches a known template (e.g. home, product, collection). They define the section stack and UX intent for that page.
+8. **Section specs that match the feature target** — `.claude/specs/sections/<slug>.md` — read these when the feature touches a known section. They document settings, blocks, and visual behavior.
+9. **Project log** — `.claude/context/OUTPUT-project-log.md` — for decisions that might affect this feature.
+10. **Other feature summaries** — if relevant, scan the summary section at the top of other `OUTPUT-implementation-plan.md` files to check for dependencies or overlap.
+
+> **Specs are stable, project-wide context.** They tell you what's already known about the project, theme, pages, and sections. Always cite them by path when you reference their content (e.g. "per `.claude/specs/sections/slideshow.md` the section uses 2 block types"). If a spec is missing for a target the feature touches, flag it as a scoping question — it's almost always cheaper to spec it before building than to discover the gap mid-implementation.
 
 ## Pre-Flight Check
 

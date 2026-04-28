@@ -26,3 +26,9 @@ yarn-error.log*
 
 # Logs
 *.log
+
+# Spec viewer (regenerated)
+.claude/specs/_viewer/
+
+# Figma thumbnails (regenerable)
+.claude/specs/_assets/figma/

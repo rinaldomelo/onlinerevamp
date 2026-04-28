@@ -65,13 +65,23 @@ Confirm the folder was created.
 
 ---
 
-### Step 4 — Guide the User
+### Step 4 — Link Relevant Specs (if any)
+
+Before guiding the user, scan `.claude/specs/pages/` and `.claude/specs/sections/` for specs whose slug appears in the feature name (e.g. feature `pdp-add-to-bag` → `pages/product*.md`; feature `slideshow-tweaks` → `sections/slideshow.md`). If matches exist, append a "Relevant specs" section to the new `feature.md` listing them as paths the user can read for context. This connects the feature to the project's spec hierarchy from day zero.
+
+If no obvious matches exist, skip — `/scope-feature` will surface relevant specs in Round 1 anyway.
+
+---
+
+### Step 5 — Guide the User
 
 Tell the user:
 
 **"Your feature folder is ready at `.claude/features/feature-[name]/`.**
 
 **Next step: Open `feature.md` and fill in the Brief section at the top — describe what you want to build in your own words. If you have any reference material (designs, screenshots, examples), drop them in the `reference/` folder.**
+
+**Relevant specs (if any) are linked at the bottom of `feature.md` — give those a quick read so your brief is grounded in the project context.**
 
 **When your brief is ready, run `/scope-feature` to start the scoping conversation."**
 

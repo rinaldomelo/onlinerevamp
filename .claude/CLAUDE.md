@@ -189,6 +189,38 @@ This is where project-wide knowledge lives.
 - `client-notes.md` — Everything the users knows about the client. Meeting notes, emails, preferences, brand context.
 - `reference/` — Screenshots, brand guidelines, PDFs, PNGs — any project-wide reference files.
 
+### Specs — `.claude/specs/`
+
+Project-wide spec hierarchy that lives **above** features. Specs describe what *exists* and what *should exist* across the project; features describe individual deltas to make against that backdrop. Always loaded as input context by `/scope-feature` and `/plan-feature-implemenation`.
+
+```
+.claude/specs/
+├── project.md                              ← store, scope, environments, decisions, Figma sources
+├── theme.md                                ← base theme metadata + inventory + critical gotchas (thin pointer)
+├── pages/<slug>.md                         ← one per Shopify JSON template — section stack + Figma viewports
+├── sections/<slug>.md                      ← one per sections/<slug>.liquid — high-level settings + inline ### Block: H3s
+├── _figma-index.json                       ← keyed registry of indexed Figma nodes + linked_specs[] (committed)
+├── _templates/                             ← scaffolds used by spec-* skills (committed)
+├── _assets/figma/                          ← cached PNG thumbnails (gitignored)
+└── _viewer/                                ← static HTML viewer, regenerated on demand (gitignored)
+```
+
+**Prerequisite chain:**
+
+```
+/onboard-theme  →  OUTPUT-initial-theme-analysis.md   (existing)
+/onboard-figma  →  OUTPUT-initial-figma-analysis.md + _figma-index.json   (NEW)
+        ↓
+/init-specs        ←  bootstraps the .claude/specs/ tree
+/spec-theme        ←  derives theme.md from analysis + filesystem counts
+/spec-project      ←  3-round Q&A → project.md
+/spec-page <slug>  ←  reads templates/<slug>.json `order[]`, links Figma viewports
+/spec-section <slug>  ←  parses sections/<slug>.liquid {% schema %}, inline blocks
+/refresh-spec-viewer  ←  static HTML viewer for browsing the hierarchy
+```
+
+The 4 levels mirror how a Shopify theme is built: project (constraints + sources of truth) → theme (platform + inventory) → page (template-level stack) → section (reusable unit). Block specs are nested inline under `## Blocks` in section files since this theme has no `/blocks/` folder.
+
 ### Features — `.claude/features/`
 
 Each feature has its own folder:

@@ -27,9 +27,16 @@ Read and understand:
 
 1. **Feature spec** — `.claude/features/[feature-name]/feature.md` — the full spec including the Extended Brief
 2. **Reference material** — `.claude/features/[feature-name]/reference/` — designs, screenshots, notes
-3. **Theme analysis** — `.claude/context/OUTPUT-initial-theme-analysis.md` — conventions, patterns, existing components
-4. **Project log** — `.claude/context/OUTPUT-project-log.md` — for context on past decisions
-5. **Other feature summaries** — if dependencies were flagged during scoping, read the relevant OUTPUT files
+3. **Project spec** — `.claude/specs/project.md` — store, scope, environments, decisions made, open questions/priorities. Lock the build's scope against project policy.
+4. **Theme spec** — `.claude/specs/theme.md` — base theme, inventory snapshot, critical gotchas. Skim before sizing build steps.
+5. **Theme analysis** — `.claude/context/OUTPUT-initial-theme-analysis.md` — full conventions (CSS, JS, Liquid, schema). The "how" of building on this theme.
+6. **Figma analysis** — `.claude/context/OUTPUT-initial-figma-analysis.md` — design source of truth, dev-ready pages, design tokens, inferred Shopify mappings.
+7. **Page specs that match the feature target** — `.claude/specs/pages/<slug>.md` — section stack and UX intent for any template the feature touches.
+8. **Section specs that match the feature target** — `.claude/specs/sections/<slug>.md` — settings, blocks, visual behavior, Figma sub-nodes for any section the feature touches.
+9. **Project log** — `.claude/context/OUTPUT-project-log.md` — for context on past decisions
+10. **Other feature summaries** — if dependencies were flagged during scoping, read the relevant OUTPUT files
+
+> **Specs anchor the implementation plan.** When a build step touches a known page or section, cite its spec by path so the plan stays grounded in the project-wide context. If a target lacks a spec, the right move is almost always to spec it first (run `/spec-page` or `/spec-section`) — finding the gap during planning is cheap; finding it mid-implementation is expensive.
 
 ## Process
 

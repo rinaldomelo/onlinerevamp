@@ -76,6 +76,8 @@ Today, Layers 1 and 2 exist as user-invoked skills and hand-authored docs. Layer
 | **M11** | Governance + observability | `.claude/logs/` JSONL audit, file-glob permissions, rollback drill | M | Scaffold merged, runtime not validated |
 | **M12** | Theme App Extension support | Parallel `extensions/` flow for app-block development; ADR-009 | L | Conditional (deferred until criteria met) |
 | **M13** | Phase-2 split: Planner ≠ Architect + level triage | Two agents, `TriagedFeatureRequest` bridge, L1–L6 levels, deterministic estimator, held-state | L | Spec ready (PR open) |
+| **L1+** | Layer 1 Intent build-out — spec hierarchy | `.claude/specs/{project,theme,pages/*,sections/*}.md` + 7 new skills (`onboard-figma`, `init-specs`, `spec-{project,theme,page,section}`, `refresh-spec-viewer`) + static HTML viewer + Figma index | L | **Shipped 2026-04-28** — wired into existing scope/plan skills |
+| **M14** | Specs as planner input | Wires `.claude/specs/` into the M13 Planner via a `resolveProjectContext()` resolver + adds Figma MCP to `.mcp.json`. ADR-011. | M | Stub (deferred — see milestones/M14-specs-as-planner-input.md) |
 
 **Effort key:** XS = hours, S = 1 day, M = 2-4 days, L = 1+ week. Solo-dev calendar.
 
