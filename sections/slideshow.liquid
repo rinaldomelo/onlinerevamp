@@ -34,6 +34,7 @@
     aria-atomic="true"
     {% if autoplay > 0 %}
       data-autoplay="{{ autoplay }}"
+      data-pause-on-hover="{{ section.settings.pause_on_hover }}"
     {% endif %}
     data-media-loading
     data-layout="{{ slider_layout }}"
@@ -343,6 +344,13 @@
       "id": "autoplay",
       "label": "t:sections.all.carousel.autoplay",
       "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "t:sections.all.carousel.pause_on_hover",
+      "default": true,
+      "visible_if": "{{ section.settings.autoplay }}"
     },
     {
       "type": "range",

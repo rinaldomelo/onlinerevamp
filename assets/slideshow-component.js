@@ -9,6 +9,8 @@ if (!customElements.get('slideshow-component')) {
         this.sliderInstance = false;
         this.layout = this.dataset.layout;
         this.items = Number(this.dataset.items);
+        this._pauseOnFocusIn = null;
+        this._pauseOnFocusOut = null;
       }
 
       connectedCallback() {
@@ -76,12 +78,14 @@ if (!customElements.get('slideshow-component')) {
         }
 
         const autoplayDelay = parseInt(this.dataset.autoplay);
+        const pauseOnHover = this.dataset.pauseOnHover === 'true';
         if (autoplayDelay > 0) {
           this.sliderOptions = {
             ...this.sliderOptions,
             autoplay: {
               delay: autoplayDelay,
               disableOnInteraction: false,
+              pauseOnMouseEnter: pauseOnHover,
             },
           };
         }
@@ -125,6 +129,33 @@ if (!customElements.get('slideshow-component')) {
               });
             });
           }
+
+          if (autoplayDelay > 0 && pauseOnHover) {
+            this.bindAutoplayFocusListeners();
+          }
+        }
+      }
+
+      bindAutoplayFocusListeners() {
+        this._pauseOnFocusIn = () => {
+          this.sliderInstance?.slider?.autoplay?.pause();
+        };
+        this._pauseOnFocusOut = (event) => {
+          if (this.contains(event.relatedTarget)) return;
+          this.sliderInstance?.slider?.autoplay?.resume();
+        };
+        this.addEventListener('focusin', this._pauseOnFocusIn);
+        this.addEventListener('focusout', this._pauseOnFocusOut);
+      }
+
+      disconnectedCallback() {
+        if (this._pauseOnFocusIn) {
+          this.removeEventListener('focusin', this._pauseOnFocusIn);
+          this._pauseOnFocusIn = null;
+        }
+        if (this._pauseOnFocusOut) {
+          this.removeEventListener('focusout', this._pauseOnFocusOut);
+          this._pauseOnFocusOut = null;
         }
       }
 

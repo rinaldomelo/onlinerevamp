@@ -1301,6 +1301,7 @@
         "show_dots": "Show pagination",
         "show_nav": "Show navigation",
         "autoplay": "Auto-rotate content",
+        "pause_on_hover": "Pause auto-rotate on hover or focus",
         "autoplay_delay": "Change slides every",
         "pagination_position": {
           "label": "Controls position",
