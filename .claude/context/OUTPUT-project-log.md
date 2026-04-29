@@ -9,6 +9,50 @@ This is the project's persistent memory. AI reads it at the start of every sessi
 
 ---
 
+## 2026-04-28 — M14 — Specs as planner input: resolver + ADR-011 + Figma MCP + hero demo
+
+Pulled the M14 stub forward the same day the spec hierarchy shipped. Branch: `feature/m14-specs-as-planner-input` (stacked off `feature/m13-planner-architect-split`). The deliverable is the **by-reference contract** between the new `.claude/specs/` hierarchy and the M13 planner+architect agents — plus an end-to-end demo against the hero (Slideshow) section.
+
+### What shipped
+
+- **Spec resolver** at `orchestrator/src/agents/shared/resolveProjectContext.ts` — pure deterministic function. Maps a `FeatureRequest` to repo-relative paths: project + theme singletons, theme + figma analyses, page specs (via `targetPages` + title-substring fallback), section specs (via page frontmatter `sections[]` + alias map `hero/carousel/banner` → slideshow + word-boundary substring on the title). Capped at 5 section matches.
+- **11 vitest cases** at `orchestrator/tests/resolveProjectContext.test.ts`. Runs against the live `.claude/specs/` tree — if a spec file gets renamed, the test fails with a clear pointer. Total suite now 36/36 passing.
+- **ADR-011** at `.claude/architecture/adr/ADR-011-spec-hierarchy-as-planner-input.md`. Decision: by-reference (resolver returns paths; agent reads via `read_spec` tool; tool implementation deferred to M15). Bridge contract preserved — `TriagedFeatureRequestSchema` unchanged.
+- **Figma MCP** registered in `.mcp.json` (`figma-developer-mcp@latest --stdio`, env-var `FIGMA_API_KEY`). Wired-but-not-exercised in M14; M14 demo doesn't require Figma round-trips. Required for the autonomous orchestrator (no IDE plugin).
+- **Hero demo** at `.claude/features/feature-hero-test/` — `feature.md` (pause_on_hover brief) + sub-agent-captured `OUTPUT-planner-triage.md` + `OUTPUT-implementation-plan.md` + `RUN-NOTES.md`. Both outputs validate against M13 schemas.
+- **M14 milestone stub** rewritten + ROADMAP M14 row updated to "In progress 2026-04-28". M15 row added for the deferred runtime work + ADR-012 stubbed.
+
+### Demo outcome (the interesting part)
+
+Used in-conversation Agent sub-agents as model surrogates (the `callPlannerModel`/`callArchitectModel` runtimes are still scaffolds — runtime wiring is M15). End-to-end:
+
+1. **Planner triaged** the hero feature as **L2 ready** with 9 acceptance criteria, citing `slideshow.md` + `index.md` in `references[]`. Deterministic estimator re-derived 0.55 teamDays (0.5 baseline × 1.1 responsive multiplier).
+2. **Architect read the live code** (not just specs) and found that `assets/slideshow-component.js` (a base/shared asset) needs editing for hover-pause to actually work — Swiper's `pauseOnMouseEnter` is unset and no `focusin/focusout` listeners exist. Per ADR-010's "respect the level signature" rule, it **emitted an `escalation` analysis PlanTask (L2 → L4)** instead of silently expanding write paths. The L4 followup plan is fully specced in `payload.recommendedFollowupPlanShape` (4 tasks: liquid + config + assets + validation).
+3. **Latent bug surfaced** as a side effect: `motionReduced` isn't gating the autoplay branch in `slideshow-component.js` line 137. Out-of-scope for the hero feature; flagged as its own ticket.
+
+Both outputs pass `PlannerOutputSchema.parse()` and `ArchitectOutputSchema.parse()` — bridge contract preserved.
+
+### Decisions made
+
+- **Mid-flight scope cut: SDK runtime wiring deferred to M15.** Original plan had M14 also wire `callPlannerModel`/`callArchitectModel` to the Anthropic Agent SDK. Advisor caught that this was scope creep over the M14 stub: the SDK uses Claude Code as a subprocess (subprocess auth, structured-output parsing, MCP wiring for two agents) and would have shipped untested in this environment. M14 instead validates the **shape** of the by-reference flow via sub-agent surrogates; M15 commits to the runtime with empirical signal in hand.
+- **By-reference over by-value** for spec injection. Captured in ADR-011. Trade: extra tool round-trips per run, but bounded prompt cost as the hierarchy grows + agent decides what's relevant.
+- **Resolver caps at 5 section matches.** Word-boundary substring on the title catches what's needed; the cap prevents prompt bloat from a sweeping title.
+- **Hand-parsed YAML frontmatter** in the resolver — adding `js-yaml` would violate "Never Add dependencies without approval" in CLAUDE.md. The two shapes the spec-* skills emit (inline + block-list) are simple enough to parse with regex.
+- **Architect routing for escalations: `targetAgent: validation`.** Debatable — could route back to the planner for re-triage, or to a dedicated escalation stage. Worth revisiting in M15. For now, `validation` is the most reasonable fit since the architect's `inspect-theme` evidence belongs there.
+
+### Risks / open questions
+
+- **Spec drift surfaced as a known unknown.** `slideshow.md`'s `## Visual behavior` line "Pauses on hover/focus" is aspirational, not factual. The architect caught it via live-code reading. A future `/validate-specs` skill (deferred) would surface this automatically. Until then, `last_curated` dates are the only drift signal.
+- **Sub-agent surrogate ≠ runtime.** The demo proves the contract holds and prompts are well-formed, but a real pipeline run (M15) will use a different invocation path and may behave differently — particularly tool-use loops, multimodal image references, and structured-output enforcement.
+- **Resolver false positives.** The page-frontmatter expansion surfaced 4 section specs (slideshow, product-tabs, collection-list, multicolumn) when only `slideshow` was relevant. Acceptable today; candidate for refinement once a pattern emerges in run logs.
+- **`callPlannerModel`/`callArchitectModel` still throw at runtime.** TODO comments now point at M15 (open ADR-012 there). The CLI `pnpm run-feature` doesn't work end-to-end yet.
+- **Figma MCP package canonicality.** `figma-developer-mcp` (community, by glips/Framelink) is the most established npm package; no official Figma MCP exists at present. Documented in ADR-011 and in `.mcp.json`. Swap if/when an official package lands.
+- **Pre-existing tsconfig issue.** `pnpm lint` fails because `rootDir: "./src"` conflicts with `include: ["tests/**/*"]`. Pre-dates M14; affects all 7 test files. Vitest works (uses esbuild). Fix is its own micro-PR.
+
+### Files touched (high-level)
+
+Added: `orchestrator/src/agents/shared/resolveProjectContext.ts`, `orchestrator/tests/resolveProjectContext.test.ts`, `.claude/architecture/adr/ADR-011-spec-hierarchy-as-planner-input.md`, `.claude/features/feature-hero-test/{feature.md, OUTPUT-planner-triage.md, OUTPUT-implementation-plan.md, RUN-NOTES.md}`. Modified: `.mcp.json` (Figma MCP registered), `.claude/architecture/ROADMAP.md` (M14 row updated, M15 row + ADR-011 + ADR-012 entries added), `.claude/architecture/milestones/M14-specs-as-planner-input.md` (rewritten from stub), `orchestrator/src/agents/{planner,architect}/model.ts` (TODO comments now reference M15). Untouched: `orchestrator/src/types.ts` (M13 bridge contract preserved — `git diff main` is empty), all M13 schema/prompt files, `.claude/specs/*.md`, all specialist agents.
+
 ## 2026-04-28 — Layer 1 (Intent) build-out — spec hierarchy shipped (Phases 0–5)
 
 Built the missing Layer 1 of the orchestration north star end-to-end. The system now generates, browses, and consumes a project-wide spec hierarchy that bridges the Shopify codebase and the Figma design source.

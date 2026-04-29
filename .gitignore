@@ -32,3 +32,4 @@ yarn-error.log*
 
 # Figma thumbnails (regenerable)
 .claude/specs/_assets/figma/
+orchestrator/tsconfig.tsbuildinfo

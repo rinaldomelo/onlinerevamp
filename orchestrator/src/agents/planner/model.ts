@@ -1,7 +1,10 @@
 // Planner model interface (M13).
 //
-// Status: scaffold. The actual Anthropic Agent SDK call lands when M14 wires
-// runtime activation. The signature matches PlannerInput → PlannerOutput.
+// Status: scaffold. M14 added the by-reference spec resolver
+// (`agents/shared/resolveProjectContext.ts`) and ADR-011, but did NOT activate
+// the runtime — that's M15 (open ADR-012 at that point capturing
+// SDK-subprocess vs. raw-Messages-API). The signature matches
+// PlannerInput → PlannerOutput.
 
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -22,22 +25,21 @@ async function loadSystemPrompt(): Promise<string> {
 }
 
 /**
- * Calls the Anthropic Agent SDK with the planner's system prompt and a
- * multimodal-content-aware input (image references become `image` content
- * blocks).
+ * Calls the model with the planner's system prompt and a multimodal-aware
+ * input (image references should become `image` content blocks).
  *
- * Implementation will use:
- *   import { createAgent } from "@anthropic-ai/claude-agent-sdk";
- *   const agent = createAgent({ model: "claude-opus-4-7", systemPrompt, tools: [/ref-fs/] });
- *   const result = await agent.run({ input });
- *   return PlannerOutputSchema.parse(result);
+ * The runtime choice (Claude Agent SDK as a subprocess vs. raw Anthropic
+ * Messages API + a hand-rolled tool loop) is open until M15 — ADR-012 will
+ * record the decision. Both surfaces can satisfy the PlannerInput → PlannerOutput
+ * contract; M14's hero demo (run via in-conversation Agent sub-agents) gave
+ * the by-reference shape an early proof-of-life that M15 builds on.
  */
 export async function callPlannerModel(
   _input: PlannerInput,
 ): Promise<PlannerOutput> {
   const _systemPrompt = await loadSystemPrompt();
-  // TODO (M14): wire Anthropic Agent SDK + multimodal image content blocks.
+  // TODO (M15): wire model runtime + read_spec tool + multimodal image content blocks.
   throw new Error(
-    "callPlannerModel is not yet implemented at runtime. Scaffold only.",
+    "callPlannerModel is not yet implemented at runtime. Scaffold only — M15 wires the runtime.",
   );
 }

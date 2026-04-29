@@ -1,7 +1,8 @@
 // Architect model interface (M13).
 //
-// Status: scaffold. The actual Anthropic Agent SDK call lands when M14 wires
-// runtime activation. Signature matches ArchitectInput → ArchitectOutput.
+// Status: scaffold. M14 introduced the by-reference spec resolver and
+// ADR-011, but did NOT activate the runtime — that's M15 (see ADR-012 when
+// it lands). Signature matches ArchitectInput → ArchitectOutput.
 
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -17,26 +18,21 @@ async function loadSystemPrompt(): Promise<string> {
 }
 
 /**
- * Calls the Anthropic Agent SDK with the architect's system prompt and tool
- * surface (Shopify Dev MCP + read-only fs).
+ * Calls the model with the architect's system prompt and tool surface
+ * (Shopify Dev MCP + read-only fs + read_spec).
  *
- * Implementation will use:
- *   import { createAgent } from "@anthropic-ai/claude-agent-sdk";
- *   const agent = createAgent({ model: "claude-opus-4-7", systemPrompt, tools });
- *   const result = await agent.run({ input });
- *   return ArchitectOutputSchema.parse(result);
- *
- * Tools surfaced:
+ * Tools the architect should have access to once M15 wires the runtime:
  *  - shopify-dev-mcp's searchShopifyDocs / searchAdminSchema
  *  - fs.listThemeFiles, fs.readTheme (read-only)
+ *  - read_spec scoped to .claude/specs and .claude/context (per ADR-011)
  *  - inspect-theme skill (Tier-2 wrapper around fs + grep)
  */
 export async function callArchitectModel(
   _input: ArchitectInput,
 ): Promise<ArchitectOutput> {
   const _systemPrompt = await loadSystemPrompt();
-  // TODO (M14): wire Anthropic Agent SDK + Shopify Dev MCP tools.
+  // TODO (M15): wire model runtime + Shopify Dev MCP + read_spec tools.
   throw new Error(
-    "callArchitectModel is not yet implemented at runtime. Scaffold only.",
+    "callArchitectModel is not yet implemented at runtime. Scaffold only — M15 wires the runtime.",
   );
 }
